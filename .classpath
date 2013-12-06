@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/render"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/home/k0smik0/workspace/libs/j3d/jars/j3d-org-all_1.1.0.jar"/>
-	<classpathentry kind="lib" path="/home/k0smik0/workspace/libs/j3d/lib/vecmath.jar"/>
-	<classpathentry kind="lib" path="/home/k0smik0/workspace/libs/j3d/jars/org.j3d.core_1.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,7 +1,6 @@
-package net.iubris.aa.spheres;
+package net.iubris.aa.spheres.render;
 
 import javax.swing.text.View;
-import javax.vecmath.Vector3f;
 
 public class BranchGroupFactory {
 /*

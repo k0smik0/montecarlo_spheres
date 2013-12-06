@@ -3,12 +3,8 @@ package net.iubris.aa.spheres;
 //import java.io.BufferedReader;
 //import java.io.InputStreamReader;
 import java.io.*;
-import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Arrays;
-
-import javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction;
 
 public class SpheresMain {
 
@@ -76,7 +72,7 @@ public class SpheresMain {
 		Arrays.sort( toSort[i] );
 	}
 	
-	double xsMax = xs[xs.length]+max;
+	double xsMax = xs[xs.length]+0;
 	double xsMin = xs[0];
 	double ysMax = ys[ys.length];
 	double ysMin = ys[0];
