@@ -1,4 +1,4 @@
-package net.iubris.aa.spheres.render;
+package net.iubris.aa.spheres.render.swing;
 
 import javax.swing.text.View;
 
