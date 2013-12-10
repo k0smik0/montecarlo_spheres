@@ -25,7 +25,19 @@ public class RandomPoint {
 			return true;
 		return false;		
 	}
-	
+		
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getZ() {
+		return z;
+	}
+
 	public String toString() {
 		return "("+x+", "+y+", "+z+")";
 	}

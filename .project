@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>LD_LIBRARY_PATH</name>
+			<value>file:/usr/lib/jvm/j3d/lib/amd64</value>
+		</variable>
+	</variableList>
 </projectDescription>

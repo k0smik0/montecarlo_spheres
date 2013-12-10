@@ -14,15 +14,15 @@ public class BoundingBox {
 		this.zDimension = zDimension;
 	}
 
-	public DimensionBounds getxDimension() {
+	public DimensionBounds getXDimension() {
 		return xDimension;
 	}
 
-	public DimensionBounds getyDimension() {
+	public DimensionBounds getYDimension() {
 		return yDimension;
 	}
 
-	public DimensionBounds getzDimension() {
+	public DimensionBounds getZDimension() {
 		return zDimension;
 	}
 	

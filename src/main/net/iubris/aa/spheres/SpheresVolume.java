@@ -14,7 +14,6 @@ import org.apache.commons.io.FileUtils;
 
 public class SpheresVolume  {
 
-
 	private Sphere[] spheres= null;
 	private BoundingBox boundingBox = null;
 	
@@ -25,34 +24,12 @@ public class SpheresVolume  {
 	private Sphere sphereWithMaxVolume;
 	private Double boundingBoxVolume;
 	private Sphere sphereWithMaxRandomPoints;
-	
-	/*public static void run(String inFileName) {		
-		double howRandoms = 1e5;
-		SpheresVolume sv = new SpheresVolume(inFileName,howRandoms);
-		try {
-			sv.parseInFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		sv.initSpheresCollection();
-		sv.initBoundingBox();
-		sv.calculateVolume();
-		
-		System.out.println("");
-	}
-	
-	public static void main(String[] args) {
-		run("ds/sfere1.in");
-		run("ds/sfere2.in");
-		run("ds/sfere3.in");
-		
-		// rendering section
-//		sv.start();
-	}*/
+	private RandomPoint[] randomPoints;
 	
 	public SpheresVolume(String inFileName, double howRandoms) {
 		this.inFileName = inFileName;
 		this.howRandoms = howRandoms;
+		this.randomPoints = new RandomPoint[(int) howRandoms];
 	}
 
 	protected void parseInFile() throws IOException {
@@ -124,12 +101,12 @@ public class SpheresVolume  {
 	}
 		
 	private static RandomPoint buildRandomPoint(double random, BoundingBox boundingBox) {
-		double xr = boundingBox.getxDimension().getMin() 
-				+ random*((boundingBox.getxDimension().getMax()-boundingBox.getxDimension().getMin())+1);
-		double yr = boundingBox.getyDimension().getMin() 
-				+ random*((boundingBox.getyDimension().getMax()-boundingBox.getyDimension().getMin())+1);
-		double zr = boundingBox.getzDimension().getMin() 
-				+ random*((boundingBox.getzDimension().getMax()-boundingBox.getzDimension().getMin())+1);
+		double xr = boundingBox.getXDimension().getMin() 
+				+ random*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
+		double yr = boundingBox.getYDimension().getMin() 
+				+ random*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
+		double zr = boundingBox.getZDimension().getMin() 
+				+ random*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
 
 		return new RandomPoint(xr, yr, zr);		
 	}
@@ -143,6 +120,8 @@ public class SpheresVolume  {
 		for (int r=0;r<howRandoms;r++) {
 						
 			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
+//			System.out.println("adding r: "+r);
+			randomPoints[r]=rp;
 			
 			for (Sphere s: spheres) {
 				if (rp.isInSphere(s)) {
@@ -155,6 +134,7 @@ public class SpheresVolume  {
 				continue;
 			}
 		}
+		System.out.println("rps: "+randomPoints.length);
 		
 		System.out.println("Sfera maggiore: "+sphereWithMaxVolume);
 		System.out.println("Punti random nella sfera maggiore: "+sphereWithMaxVolume.getContainedRandomPoints());
@@ -209,6 +189,16 @@ public class SpheresVolume  {
 		// currentMin and actualMin are in different quadrants
 		// and actualMin < currentMin
 		return actualMin;
+	}
+	
+	public BoundingBox getBoundingBox() {
+		return boundingBox;
+	}
+	public Sphere[] getSpheres() {
+		return spheres;
+	}
+	public RandomPoint[] getRandomPoints() {
+		return randomPoints;
 	}
 	
 }
