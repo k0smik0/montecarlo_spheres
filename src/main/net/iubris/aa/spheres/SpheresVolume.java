@@ -22,7 +22,7 @@ public class SpheresVolume  {
 	private List<String> lines;
 	private double maxVolumeFound = 0;
 	private Sphere sphereWithMaxVolume;
-	private Double boundingBoxVolume;
+//	private Double boundingBoxVolume;
 	private Sphere sphereWithMaxRandomPoints;
 	private RandomPoint[] randomPoints;
 	
@@ -64,104 +64,74 @@ public class SpheresVolume  {
 	protected void initBoundingBox() {
 		
 		Double boundingBoxXMin = null;
+		Sphere xMinSphere = null;
 		Double boundingBoxXMax = null;
-		
-		Double boundingBoxYMin = null;
-		Double boundingBoxYMax = null;
+		Sphere xMaxSphere = null;
 		
 		Double boundingBoxZMin = null;
+		Sphere zMinSphere = null;
 		Double boundingBoxZMax = null;
+		Sphere zMaxSphere = null;
+		
+		Double boundingBoxYMin = null;
+		Sphere yMinSphere = null;
+		Double boundingBoxYMax = null;
+		Sphere yMaxSphere = null;
+		
 				
-		for (int s=0;s<spheres.length;s++) {
+		for (int i=0;i<spheres.length;i++) {
 			
-			Sphere sphere = spheres[s];
-			double cx = sphere.getX();
-			double cy = sphere.getY();
-			double cz = sphere.getZ();
+			Sphere sphere = spheres[i];
 			double radius = sphere.getRadius();
-					
-			boundingBoxXMax = calculateHigherBound(cx,radius,boundingBoxXMax);
-			boundingBoxXMin = calculateLowerBound(cx,radius,boundingBoxXMin);
+
+			double cx = sphere.getX();
+			double computedXLB = 	calculateLowerBound(cx,radius,boundingBoxXMin);
+			if (boundingBoxXMin==null || computedXLB != boundingBoxXMin) {
+				boundingBoxXMin = computedXLB;
+				xMinSphere = sphere;
+			}			
+			double computedXHB = calculateHigherBound(cx,radius,boundingBoxXMax);
+			if (boundingBoxXMax==null || computedXHB != boundingBoxXMax) {
+				boundingBoxXMax = computedXHB;
+				xMaxSphere = sphere;
+			}
 			
-			boundingBoxYMax = calculateHigherBound(cy,radius,boundingBoxYMax);
-			boundingBoxYMin = calculateLowerBound(cy,radius,boundingBoxYMin);
+			double cz = sphere.getZ();
+			double computedZLB = calculateLowerBound(cz,radius,boundingBoxZMin);
+			if (boundingBoxZMin==null || computedZLB != boundingBoxZMin) {
+				boundingBoxZMin = computedZLB;
+				zMinSphere = sphere;
+			}
+			double computedZHB = calculateHigherBound(cz,radius,boundingBoxZMax);
+			if (boundingBoxZMax==null || computedZHB != boundingBoxZMax) {
+				boundingBoxZMax = computedZHB;
+				zMaxSphere = sphere;
+			}
 			
-			boundingBoxZMax = calculateHigherBound(cz,radius,boundingBoxZMax);
-			boundingBoxZMin = calculateLowerBound(cz,radius,boundingBoxZMin);
+			double cy = sphere.getY();
+			double computedYLB = calculateLowerBound(cy,radius,boundingBoxYMin);
+			if (boundingBoxYMin==null ||computedYLB != boundingBoxYMin) {
+				boundingBoxYMin = computedYLB;
+				yMinSphere = sphere;
+			}
+			double computedYHB = calculateHigherBound(cy,radius,boundingBoxYMax);
+			if (boundingBoxYMax==null || computedYHB != boundingBoxYMax) {
+				boundingBoxYMax = computedYHB;
+				yMaxSphere = sphere;
+			}
 		}
 		
 		this.boundingBox = new BoundingBox(
 				new DimensionBounds(boundingBoxXMin, boundingBoxXMax),
 				new DimensionBounds(boundingBoxYMin, boundingBoxYMax),
-				new DimensionBounds(boundingBoxZMin, boundingBoxZMax)
+				new DimensionBounds(boundingBoxZMin, boundingBoxZMax),
+				xMinSphere, xMaxSphere,
+				yMinSphere, yMaxSphere,
+				zMinSphere, zMaxSphere
 				);
 	
-		this.boundingBoxVolume = boundingBox.getVolume();
-		System.out.println("bounding box: "+boundingBox+" with volume: "+this.boundingBoxVolume);
+		System.out.println(boundingBox);
 	}
-		
-	private static RandomPoint buildRandomPoint(double random, BoundingBox boundingBox) {
-		double xr = boundingBox.getXDimension().getMin() 
-				+ random*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
-		double yr = boundingBox.getYDimension().getMin() 
-				+ random*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
-		double zr = boundingBox.getZDimension().getMin() 
-				+ random*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
-
-		return new RandomPoint(xr, yr, zr);		
-	}
-
-	protected void calculateVolume() {
-			
-		Random randomGenerator = new Random();
-			
-		int maxRandomPointsFoundWithinSphereBetweenAllSpheres = 0;
-					
-		for (int r=0;r<howRandoms;r++) {
-						
-			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
-//			System.out.println("adding r: "+r);
-			randomPoints[r]=rp;
-			
-			for (Sphere s: spheres) {
-				if (rp.isInSphere(s)) {
-					int actual = s.incrementContainedRandomPoints();						
-					if (actual>maxRandomPointsFoundWithinSphereBetweenAllSpheres) {
-						maxRandomPointsFoundWithinSphereBetweenAllSpheres = actual;
-						sphereWithMaxRandomPoints = s;
-					}
-				}					
-				continue;
-			}
-		}
-		System.out.println("rps: "+randomPoints.length);
-		
-		System.out.println("Sfera maggiore: "+sphereWithMaxVolume);
-		System.out.println("Punti random nella sfera maggiore: "+sphereWithMaxVolume.getContainedRandomPoints());
-		
-		
-		System.out.println("Max random points found within one sphere: "
-				+maxRandomPointsFoundWithinSphereBetweenAllSpheres
-				+", in sphere: "+sphereWithMaxRandomPoints);
-		System.out.println(maxRandomPointsFoundWithinSphereBetweenAllSpheres
-				+"/"+howRandoms+"="
-				+maxRandomPointsFoundWithinSphereBetweenAllSpheres*100.0f/howRandoms+"%" );
-	
-		double volumeTotalMontecarlo = (
-				(0.0+maxRandomPointsFoundWithinSphereBetweenAllSpheres) / (0.0+howRandoms))*boundingBoxVolume;
-		
-		double volumeTotal = 0;
-		for (Sphere s: spheres) {
-			volumeTotal += s.getVolume();
-		}
-		System.out.println("Volume totale di " +spheres.length+" sfere: "+volumeTotal);
-		System.out.println("Volume totale by Montecarlo: ("
-				+maxRandomPointsFoundWithinSphereBetweenAllSpheres+"/"+howRandoms+")*"+boundingBoxVolume
-				+" = "
-				+volumeTotalMontecarlo);
-	}
-	
-
 	private static double calculateHigherBound(double coordinate, double radius, Double actualMax) {
 		double currentMax = coordinate+radius;
 		if (actualMax==null)
@@ -190,6 +160,72 @@ public class SpheresVolume  {
 		// and actualMin < currentMin
 		return actualMin;
 	}
+	
+		
+	private static RandomPoint buildRandomPoint(double random, BoundingBox boundingBox) {
+		double xr = boundingBox.getXDimension().getMin()
+				+ random*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
+		double yr = boundingBox.getYDimension().getMin()
+				+ random*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
+		double zr = boundingBox.getZDimension().getMin()
+				+ random*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
+
+		return new RandomPoint(xr, yr, zr);		
+	}
+
+	protected void calculateVolume() {
+			
+		Random randomGenerator = new Random();
+			
+		int randomPointsFoundInAnySphere = 0;
+					
+		for (int r=0;r<howRandoms;r++) {
+						
+			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
+			randomPoints[r]=rp;
+			
+			for (Sphere s: spheres) {
+				if (rp.isInSphere(s)) {
+					/*int actual = s.incrementContainedRandomPoints();						
+					if (actual>maxRandomPointsFoundInAnySphere) {
+						maxRandomPointsFoundInAnySphere = actual;
+						sphereWithMaxRandomPoints = s;
+					}*/
+					s.incrementContainedRandomPoints();
+					randomPointsFoundInAnySphere++;
+				}
+				continue;
+			}
+		}
+		System.out.println("random points generated are: "+randomPoints.length);
+		
+		System.out.println("Sfera maggiore: "+sphereWithMaxVolume);
+		System.out.println("Punti random nella sfera maggiore: "+sphereWithMaxVolume.getContainedRandomPoints());
+		
+		
+		System.out.println("Punti random massimi trovati all'interno delle sfere: "
+				+randomPointsFoundInAnySphere+",\n"
+				+"\tnella sfera: "+sphereWithMaxRandomPoints);
+		System.out.println("Percentuale: "+randomPointsFoundInAnySphere
+				+"/"+howRandoms+"="
+				+randomPointsFoundInAnySphere*100.0f/howRandoms+"%" );
+	
+		double volumeTotalMontecarlo = (
+				(0.0+randomPointsFoundInAnySphere) / (0.0+howRandoms))*boundingBox.getVolume();
+		
+		double volumeTotal = 0;
+		for (Sphere s: spheres) {
+			volumeTotal += s.getVolume();
+		}
+		System.out.println("Volume totale di " +spheres.length+" sfere: "+volumeTotal);
+		System.out.println("Volume totale by Montecarlo: ("
+				+randomPointsFoundInAnySphere+"/"+howRandoms+")*"+boundingBox.getVolume()
+				+" = "
+				+volumeTotalMontecarlo);
+	}
+	
+
+	
 	
 	public BoundingBox getBoundingBox() {
 		return boundingBox;

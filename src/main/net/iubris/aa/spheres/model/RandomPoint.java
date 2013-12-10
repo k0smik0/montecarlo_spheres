@@ -13,7 +13,6 @@ public class RandomPoint {
 	}
 	
 	public boolean isInSphere(Sphere sphere) {
-		
 		double sx = sphere.getX();
 		double sy = sphere.getY();
 		double sz = sphere.getZ();
@@ -29,11 +28,9 @@ public class RandomPoint {
 	public double getX() {
 		return x;
 	}
-
 	public double getY() {
 		return y;
 	}
-
 	public double getZ() {
 		return z;
 	}
@@ -41,5 +38,4 @@ public class RandomPoint {
 	public String toString() {
 		return "("+x+", "+y+", "+z+")";
 	}
-
 }

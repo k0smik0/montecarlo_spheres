@@ -40,7 +40,7 @@ public class Sphere {
 	}
 	
 	public String toString() {
-		return "("+x+", "+y+", "+z+"), radius = "+radius+", volume = "+volume;
+		return "("+x+", "+y+", "+z+"),\tradius = "+radius+",\tvolume = "+volume;
 	}
 
 	public int incrementContainedRandomPoints() {
