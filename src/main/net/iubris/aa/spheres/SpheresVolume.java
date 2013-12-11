@@ -189,7 +189,7 @@ public class SpheresVolume  {
 			
 		int randomPointsFoundInAnySphere = 0;
 					
-		for (int r=0;r<howRandoms*3;r++) {
+		for (int r=0;r<howRandoms;r++) {
 						
 //			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
 			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),
@@ -197,6 +197,7 @@ public class SpheresVolume  {
 					randomGenerator.nextDouble(),
 					this.boundingBox);
 			randomPoints[r]=rp;
+//			System.out.println("adding "+r);
 			
 			for (Sphere s: spheres) {
 				if (rp.isInSphere(s)) {

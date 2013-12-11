@@ -78,6 +78,18 @@ public class BoundingBox {
 	public Sphere getzMaxSphere() {
 		return zMaxSphere;
 	}
+	
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public double getDepth() {
+		return depth;
+	}
 
 	public String toString() {
 		String s = "Bounding box with bounds spheres:\n"
