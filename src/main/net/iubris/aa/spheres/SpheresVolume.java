@@ -172,6 +172,16 @@ public class SpheresVolume  {
 
 		return new RandomPoint(xr, yr, zr);		
 	}
+	private static RandomPoint buildRandomPoint(double randomX, double randomY, double randomZ, BoundingBox boundingBox) {
+		double xr = boundingBox.getXDimension().getMin()
+				+ randomX*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
+		double yr = boundingBox.getYDimension().getMin()
+				+ randomY*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
+		double zr = boundingBox.getZDimension().getMin()
+				+ randomZ*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
+
+		return new RandomPoint(xr, yr, zr);		
+	}
 
 	protected void calculateVolume() {
 			
@@ -179,9 +189,13 @@ public class SpheresVolume  {
 			
 		int randomPointsFoundInAnySphere = 0;
 					
-		for (int r=0;r<howRandoms;r++) {
+		for (int r=0;r<howRandoms*3;r++) {
 						
-			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
+//			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
+			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),
+					randomGenerator.nextDouble(),
+					randomGenerator.nextDouble(),
+					this.boundingBox);
 			randomPoints[r]=rp;
 			
 			for (Sphere s: spheres) {

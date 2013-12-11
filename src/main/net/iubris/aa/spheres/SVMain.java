@@ -17,6 +17,7 @@ public class SVMain {
 		sv.initBoundingBox();
 		sv.calculateVolume();
 
+		// rendering section
 		SpheresRender.draw(sv);
 	}
 	
@@ -24,9 +25,6 @@ public class SVMain {
 		run("ds/sfere1.in", "sfere NON intersecanti NÉ tangenti", 1E5);
 //		run("ds/sfere2.in");
 //		run("ds/sfere3.in");
-		
-		// rendering section
-//		sv.start();
 	}
 
 }
