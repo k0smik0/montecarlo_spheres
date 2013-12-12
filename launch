@@ -1,0 +1,1 @@
+ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/k0smik0/workspace/montecarlo_spheres/libs/i386 java -cp ../libs/commons-io-2.4.jar:/usr/lib/jvm/java-6-sun/jre/lib/j3dcore.jar:/usr/lib/jvm/java-6-sun/jre/lib/j3dutils.jar:/usr/lib/jvm/java-6-sun/jre/lib/vecmath.jar:../libs/stdlib.jar:.  net.iubris.aa.spheres.SVMain

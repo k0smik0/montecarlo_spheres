@@ -18,10 +18,29 @@ public class SpheresRender {
 				bb.getYDimension().getMax()-bb.getYDimension().getMin());
 		double max = Math.max(maxXY,
 				bb.getZDimension().getMax()-bb.getZDimension().getMin());*/
-		StdDraw3D.setCanvasSize(1280, 800);
-		StdDraw3D.setScale(-10,10);
+		StdDraw3D.setCanvasSize(800, 600);
+		int scale = 20;
+		StdDraw3D.setScale(-scale,scale);
 		
-      DimensionBounds xDimension = bb.getXDimension();
+		double[] axesUsed = new double[scale];
+		double[] axesNotUsed = new double[scale];
+		for (int i=0;i<scale;i++) {
+			axesUsed[i]=i;
+			axesNotUsed[i]=0;
+		}
+		StdDraw3D.lines(axesUsed, axesNotUsed, axesNotUsed).setColor(Color.WHITE);
+		StdDraw3D.lines(axesNotUsed, axesUsed, axesNotUsed).setColor(Color.WHITE);
+		StdDraw3D.lines(axesNotUsed, axesNotUsed, axesUsed).setColor(Color.WHITE);
+		
+		StdDraw3D.text3D(0, 0, 0, "0");
+		for (int l=-scale;l<=scale;l=l+2) {
+			StdDraw3D.text3D(l, 0, 0, ""+l);
+			StdDraw3D.text3D(0, l, 0, ""+l);
+			StdDraw3D.text3D(0, 0, l, ""+l);
+		}
+		
+		
+		DimensionBounds xDimension = bb.getXDimension();
 		DimensionBounds yDimension = bb.getYDimension();
 		DimensionBounds zDimension = bb.getZDimension();
 		
