@@ -1,0 +1,6 @@
+#!/bin/bash
+ 
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/k0smik0/workspace/montecarlo_spheres/libs/i386 
+CLASSPATH=./libs/commons-io-2.4.jar:/usr/lib/jvm/java-6-sun/jre/lib/j3dcore.jar:/usr/lib/jvm/java-6-sun/jre/lib/j3dutils.jar:/usr/lib/jvm/java-6-sun/jre/lib/vecmath.jar:./libs/stdlib.jar:.  
+
+javac -d ./bin -cp "$CLASSPATH:./bin" `find src/main -iname *.java` `find src/render -iname *.java | grep std`
