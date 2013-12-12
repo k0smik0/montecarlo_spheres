@@ -39,7 +39,6 @@ public class SpheresRender {
 			StdDraw3D.text3D(0, 0, l, ""+l);
 		}
 		
-		
 		DimensionBounds xDimension = bb.getXDimension();
 		DimensionBounds yDimension = bb.getYDimension();
 		DimensionBounds zDimension = bb.getZDimension();
@@ -56,9 +55,9 @@ public class SpheresRender {
 		double wbYCenter = yMin+(yMax-yMin)/2;
 		double wbZCenter = zMin+(zMax-zMin)/2;
 
-		double wbWidth = bb.getWidth();
-		double wbHeight = bb.getHeight();
-		double wbDepth = bb.getDepth();
+		double wbWidth = bb.getWidth()/2;
+		double wbHeight = bb.getHeight()/2;
+		double wbDepth = bb.getDepth()/2;
 		
 		System.out.println(wbXCenter+" "+wbYCenter+" "+wbZCenter+" "+wbWidth+" "+wbHeight+" "+wbDepth);
 		
@@ -72,6 +71,11 @@ public class SpheresRender {
 				).setColor(Color.RED, 130);
 		for (Sphere s: sv.getSpheres()) {
 			StdDraw3D.wireSphere(s.getX(), s.getY(), s.getZ(), s.getRadius()).setColor(Color.BLUE, 50);
+			/*Shape wireSphere = StdDraw3D.wireSphere(0, 0, 0, s.getRadius());
+			wireSphere.setColor(Color.BLUE, 50);
+			Vector3D vector3D = new Vector3D(s.getX(), s.getY(), s.getZ());
+			StdDraw3D.pause(5);
+			wireSphere.move(vector3D);*/			
 		}
 //		int rn=0;
 		RandomPoint[] randomPoints = sv.getRandomPoints();
