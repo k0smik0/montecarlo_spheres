@@ -18,14 +18,14 @@ public class SVMain {
 		sv.calculateVolume();
 
 		// rendering section
-//		SpheresRender.draw(sv);
+		SpheresRender.draw(sv);
 	}
 	
 	public static void main(String[] args) {
-		run("ds/sfere1.in", "*** sfere NON intersecanti NÉ tangenti ***", 1E3);
+		run("ds/sfere1.in", "*** 1000 sfere NON intersecanti NÉ tangenti ***", 1E5);
 		System.out.println("\n");
-		run("ds/sfere2.in", "*** sfere concentriche ***", 1E3);
-//		run("ds/sfere3.in", "sfere casuali", 1E3);
+//		run("ds/sfere2.in", "*** 1000 sfere concentriche ***", 1E6);
+//		run("ds/sfere3.in", "sfere casuali", 1E6);
 	}
 
 }

@@ -25,6 +25,6 @@ public class DimensionBounds {
 	}
 	
 	public String toString() {
-		return "("+min+","+max+")";
+		return "("+min+"<->"+max+")";
 	}
 }
