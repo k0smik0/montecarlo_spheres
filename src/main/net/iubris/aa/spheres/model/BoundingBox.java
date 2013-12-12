@@ -16,7 +16,7 @@ public class BoundingBox {
 	private final double height; // z
 	private final double depth; // y
 
-	public BoundingBox(	DimensionBounds xDimensionBounds, DimensionBounds yDimensionBounds, DimensionBounds zDimensionBounds,
+	public BoundingBox(DimensionBounds xDimensionBounds, DimensionBounds yDimensionBounds, DimensionBounds zDimensionBounds,
 			Sphere xMinSphere, Sphere xMaxSphere,
 			Sphere yMinSphere, Sphere yMaxSphere,
 			Sphere zMinSphere, Sphere zMaxSphere			
@@ -93,12 +93,12 @@ public class BoundingBox {
 
 	public String toString() {
 		String s = "Bounding box with bounds spheres:\n"
-				+"\txMin: "+xMinSphere+"\n"
-				+"\txMax: "+xMaxSphere+"\n"
-				+"\tyMin: "+yMinSphere+"\n"
-				+"\tyMax: "+yMaxSphere+"\n"
-				+"\tzMin: "+zMinSphere+"\n"
-				+"\tzMax: "+zMaxSphere+"\n"				
+				+"\tsphere on xMin: "+xMinSphere+"\n"
+				+"\tsphere on xMax: "+xMaxSphere+"\n"
+				+"\tsphere on yMin: "+yMinSphere+"\n"
+				+"\tsphere on yMax: "+yMaxSphere+"\n"
+				+"\tsphere on zMin: "+zMinSphere+"\n"
+				+"\tsphere on zMax: "+zMaxSphere+"\n"				
 				+"\twith bounds: x:"+xDimensionBounds+" y:"+yDimensionBounds+" z:"+zDimensionBounds+",\n"
 				+"\tof dimensions: "+width+" * "+depth+" * "+height+" and volume = "+volume+",\n";
 		return s;

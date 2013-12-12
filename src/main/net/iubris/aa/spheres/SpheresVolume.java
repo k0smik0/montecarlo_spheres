@@ -190,6 +190,7 @@ public class SpheresVolume  {
 		int randomPointsFoundInAnySphere = 0;
 		
 		int howSpheres = spheres.length;
+		int[] spheresContaining = new int[howSpheres];
 		for (int r=0;r<howRandoms;r++) {
 						
 //			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
@@ -203,15 +204,22 @@ public class SpheresVolume  {
 			
 			for (int i=0;i<howSpheres;i++) {
 				Sphere s = spheres[i];
+//				if (spheresContaining[i]==1)
+				//if (s==null)
+//					continue;
+//					break;
 				if (rp.isInSphere(s)) {
 					s.incrementContainedRandomPoints();
 					randomPointsFoundInAnySphere++;
-					s=null;
-					howSpheres--;
+//					s=null;
+					spheresContaining[i]++;
+//					howSpheres--;
 //					System.out.println("howSpheres: "+howSpheres);
-					continue;
+					break;
 				}
 			}
+			//howSpheres--;
+
 			/*for (Sphere s: spheres) {
 				if (rp.isInSphere(s)) {
 //					int actual = s.incrementContainedRandomPoints();						
