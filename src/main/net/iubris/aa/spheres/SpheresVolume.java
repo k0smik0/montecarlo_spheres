@@ -188,7 +188,8 @@ public class SpheresVolume  {
 		Random randomGenerator = new Random();
 			
 		int randomPointsFoundInAnySphere = 0;
-					
+		
+		int howSpheres = spheres.length;
 		for (int r=0;r<howRandoms;r++) {
 						
 //			RandomPoint rp = buildRandomPoint(randomGenerator.nextDouble(),this.boundingBox);
@@ -199,18 +200,31 @@ public class SpheresVolume  {
 			randomPoints[r]=rp;
 //			System.out.println("adding "+r);
 			
-			for (Sphere s: spheres) {
+			
+			for (int i=0;i<howSpheres;i++) {
+				Sphere s = spheres[i];
 				if (rp.isInSphere(s)) {
-					/*int actual = s.incrementContainedRandomPoints();						
-					if (actual>maxRandomPointsFoundInAnySphere) {
-						maxRandomPointsFoundInAnySphere = actual;
-						sphereWithMaxRandomPoints = s;
-					}*/
 					s.incrementContainedRandomPoints();
 					randomPointsFoundInAnySphere++;
+					s=null;
+					howSpheres--;
+//					System.out.println("howSpheres: "+howSpheres);
+					continue;
 				}
-				continue;
 			}
+			/*for (Sphere s: spheres) {
+				if (rp.isInSphere(s)) {
+//					int actual = s.incrementContainedRandomPoints();						
+//					if (actual>maxRandomPointsFoundInAnySphere) {
+//						maxRandomPointsFoundInAnySphere = actual;
+//						sphereWithMaxRandomPoints = s;
+//					}
+					s.incrementContainedRandomPoints();
+					randomPointsFoundInAnySphere++;
+					continue;
+				}
+//				continue;
+			}*/
 		}
 		System.out.println("random points generated are: "+randomPoints.length);
 		

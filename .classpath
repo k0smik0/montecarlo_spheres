@@ -2,8 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry excluding="net/iubris/aa/spheres/render/jme3/Rendering.java|net/iubris/aa/spheres/render/swing/" kind="src" path="src/render"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j3d"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j3d">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="montecarlo_spheres/libs/i386"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="libs/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="libs/stdlib.jar"/>
 	<classpathentry kind="output" path="bin"/>
