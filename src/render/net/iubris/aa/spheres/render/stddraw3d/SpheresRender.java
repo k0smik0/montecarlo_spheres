@@ -9,6 +9,7 @@ import net.iubris.aa.spheres.model.RandomPoint;
 import net.iubris.aa.spheres.model.Sphere;
 import edu.princeton.stddraw3d.StdDraw3D;
 import edu.princeton.stddraw3d.StdDraw3D.Shape;
+import edu.princeton.stddraw3d.StdDraw3D.Vector3D;
 
 public class SpheresRender {
 
@@ -66,7 +67,6 @@ public class SpheresRender {
 		StdDraw3D.lines(axesNotUsed, axesNotUsed, axesUsed)
 			.setColor(Color.YELLOW);
 		
-//		StdDraw3D.setPenRadius(3.0);
 		Shape textCenter = StdDraw3D.text3D(0, 0, 0, "0");
 		textCenter.setColor(Color.YELLOW);
 		textCenter.scale(5);
@@ -89,9 +89,11 @@ public class SpheresRender {
 		double yMin = yDimension.getMin();
 		double zMin = zDimension.getMin();
 		
-		double wbXCenter = xMin+(xMax-xMin)/2;
-		double wbYCenter = yMin+(yMax-yMin)/2;
-		double wbZCenter = zMin+(zMax-zMin)/2;
+		double wbXCenter = (xMin+(xMax-xMin))/2;
+		double wbYCenter = (yMin+(yMax-yMin))/2;
+		double wbZCenter = (zMin+(zMax-zMin))/2;
+		
+		//System.out.println(xMin+"+("+xMax+"-"+xMin+")"+"/2");
 
 		double wbWidth = bb.getWidth()/2;
 		double wbHeight = bb.getHeight()/2;
@@ -109,12 +111,12 @@ public class SpheresRender {
 				).setColor(Color.RED, 130);
 		
 		for (Sphere s: sv.getSpheres()) {
-		//	StdDraw3D.wireSphere(s.getX(), s.getY(), s.getZ(), s.getRadius()).setColor(Color.BLUE, 50);
-			Shape wireSphere = StdDraw3D.wireSphere(0, 0, 0, s.getRadius());
+			StdDraw3D.wireSphere(s.getX(), s.getY(), s.getZ(), s.getRadius()).setColor(Color.BLUE, 50);
+			/*Shape wireSphere = StdDraw3D.wireSphere(0, 0, 0, s.getRadius());
 			wireSphere.setColor(Color.BLUE, 50);
 			Vector3D vector3D = new Vector3D(s.getX(), s.getY(), s.getZ());
 			StdDraw3D.pause(5);
-			wireSphere.move(vector3D);
+			wireSphere.move(vector3D);*/
 		}
 //		int rn=0;
 		RandomPoint[] randomPoints = sv.getRandomPoints();
