@@ -16,7 +16,9 @@ public class BoundingBox {
 	private final double height; // z
 	private final double depth; // y
 
-	public BoundingBox(DimensionBounds xDimensionBounds, DimensionBounds yDimensionBounds, DimensionBounds zDimensionBounds,
+	public BoundingBox(DimensionBounds xDimensionBounds, 
+			DimensionBounds yDimensionBounds, 
+			DimensionBounds zDimensionBounds,
 			Sphere xMinSphere, Sphere xMaxSphere,
 			Sphere yMinSphere, Sphere yMaxSphere,
 			Sphere zMinSphere, Sphere zMaxSphere			
@@ -36,16 +38,6 @@ public class BoundingBox {
 		this.zMaxSphere = zMaxSphere;
 	}
 
-	public DimensionBounds getXDimension() {
-		return xDimensionBounds;
-	}
-	public DimensionBounds getYDimension() {
-		return yDimensionBounds;
-	}
-	public DimensionBounds getZDimension() {
-		return zDimensionBounds;
-	}
-	
 	public Double getVolume() {
 		return volume;
 	}
@@ -53,10 +45,10 @@ public class BoundingBox {
 	public DimensionBounds getxDimensionBounds() {
 		return xDimensionBounds;
 	}
-	public DimensionBounds getyDimensionBounds() {
+	public DimensionBounds getYDimensionBounds() {
 		return yDimensionBounds;
 	}
-	public DimensionBounds getzDimensionBounds() {
+	public DimensionBounds getZDimensionBounds() {
 		return zDimensionBounds;
 	}
 

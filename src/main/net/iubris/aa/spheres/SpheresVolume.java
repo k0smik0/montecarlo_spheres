@@ -9,6 +9,7 @@ import net.iubris.aa.spheres.model.BoundingBox;
 import net.iubris.aa.spheres.model.DimensionBounds;
 import net.iubris.aa.spheres.model.Point;
 import net.iubris.aa.spheres.model.Sphere;
+import net.iubris.aa.spheres.model.Volume;
 
 import org.apache.commons.io.FileUtils;
 
@@ -25,6 +26,7 @@ public class SpheresVolume  {
 //	private Double boundingBoxVolume;
 	private Sphere sphereWithMaxRandomPoints;
 	private Point[] randomPoints;
+	private Volume volume;
 	
 	public SpheresVolume(String inFileName, double howRandoms) {
 		this.inFileName = inFileName;
@@ -171,14 +173,20 @@ public class SpheresVolume  {
 		return new RandomPoint(xr, yr, zr);		
 	}*/
 	private static Point buildRandomPoint(double randomX, double randomY, double randomZ, BoundingBox boundingBox) {
-		double xr = boundingBox.getXDimension().getMin()
-				+ randomX*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
-		double yr = boundingBox.getYDimension().getMin()
-				+ randomY*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
-		double zr = boundingBox.getZDimension().getMin()
-				+ randomZ*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
+//		double xr = boundingBox.getXDimension().getMin()
+//				+ randomX*((boundingBox.getXDimension().getMax()-boundingBox.getXDimension().getMin())+1);
+		double xr = boundingBox.getxDimensionBounds().getMin()+randomX*boundingBox.getWidth();
+//		double yr = boundingBox.getYDimension().getMin()
+//				+ randomY*((boundingBox.getYDimension().getMax()-boundingBox.getYDimension().getMin())+1);
+//		double zr = boundingBox.getZDimension().getMin()
+//				+ randomZ*((boundingBox.getZDimension().getMax()-boundingBox.getZDimension().getMin())+1);
+		double yr = boundingBox.getYDimensionBounds().getMin()+randomY*boundingBox.getDepth();
+		double zr = boundingBox.getZDimensionBounds().getMin()+randomZ*boundingBox.getHeight();
+		
+		Point point = new Point(xr, yr, zr);
+//		System.out.println(point);
 
-		return new Point(xr, yr, zr);		
+		return point;
 	}
 
 	protected void calculateVolume() {
@@ -247,8 +255,7 @@ public class SpheresVolume  {
 		System.out.println("Percentuale: "+totalPointsFound
 				+"/"+howRandoms+" = "+totalPointsFound*100.0f/howRandoms+"%" );
 	
-		double volumeTotalMontecarlo = (
-				(0.0+totalPointsFound) / (0.0+howRandoms))*boundingBox.getVolume();
+		double volumeTotalMontecarlo = ( (0.0+totalPointsFound) / (0.0+howRandoms) )*boundingBox.getVolume();
 		
 		double volumeTotal = 0;
 		for (Sphere s: spheres) {
@@ -259,6 +266,8 @@ public class SpheresVolume  {
 				+totalPointsFound+"/"+howRandoms+")*"+boundingBox.getVolume()
 				+" = "
 				+volumeTotalMontecarlo);
+		
+		this.volume =  new Volume(volumeTotal, volumeTotalMontecarlo,howRandoms);
 	}
 	
 
@@ -272,6 +281,10 @@ public class SpheresVolume  {
 	}
 	public Point[] getRandomPoints() {
 		return randomPoints;
+	}
+	
+	public Volume getVolume() {
+		return volume;
 	}
 	
 }
