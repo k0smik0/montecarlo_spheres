@@ -2,6 +2,7 @@ package net.iubris.aa.spheres;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -27,11 +28,13 @@ public class SpheresVolume  {
 	private Sphere sphereWithMaxRandomPoints;
 	private Point[] randomPoints;
 	private Volume volume;
+	private List<Point> randomPointsFound;
 	
 	public SpheresVolume(String inFileName, double howRandoms) {
 		this.inFileName = inFileName;
 		this.howRandoms = howRandoms;
 		this.randomPoints = new Point[(int) howRandoms];
+		randomPointsFound = new ArrayList<Point>();
 	}
 
 	protected void parseInFile() throws IOException {
@@ -210,22 +213,21 @@ public class SpheresVolume  {
 			
 			for (int i=0;i<howSpheres;i++) {
 				Sphere s = spheres[i];
-//				if (spheresContaining[i]==1)
-				//if (s==null)
-//					continue;
-//					break;
+
 				if (s.contains(rp)) {
 					int pointsWithinCurrentSphere = s.incrementFoundPoints();
 					totalPointsFound++;
-//					s=null;
-//					spheresContaining[i]++;
-					if (sphereWithMaxRandomPoints!=s)
+
+					// just for store sphere having max points
+					if (sphereWithMaxRandomPoints!=s) {
 						if (pointsWithinCurrentSphere==totalPointsFound) {
-	//						maxRandomPointsFoundInAnySphere = actual;
 							sphereWithMaxRandomPoints = s;
 						}
-//					howSpheres--;
-//					System.out.println("howSpheres: "+howSpheres);
+					}
+					
+					// store all random points found
+					randomPointsFound.add(rp);
+
 					break;
 				}
 			}
@@ -282,9 +284,11 @@ public class SpheresVolume  {
 	public Point[] getRandomPoints() {
 		return randomPoints;
 	}
-	
 	public Volume getVolume() {
 		return volume;
+	}
+	public List<Point> getRandomPointsFound() {
+		return randomPointsFound;
 	}
 	
 }

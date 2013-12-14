@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import net.iubris.aa.spheres.chart.SpheresChart;
 import net.iubris.aa.spheres.chart.SpheresChartDataSet;
+import net.iubris.aa.spheres.render.stddraw3d.SpheresByPointsRender;
 import net.iubris.aa.spheres.render.stddraw3d.SpheresRender;
 
 import org.jfree.chart.ChartPanel;
@@ -56,6 +57,7 @@ public class SVMain extends ApplicationFrame {
 	// rendering section
 		if (draw3d) {
 			new SpheresRender( calculateSpheresVolume("ds/"+fileName, title, 1E5) ).draw();
+			new SpheresByPointsRender( calculateSpheresVolume("ds/"+fileName, title, 1E5) ).draw();
 		}
 	}
 	
