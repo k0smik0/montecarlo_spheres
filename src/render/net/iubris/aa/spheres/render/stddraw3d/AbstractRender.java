@@ -4,15 +4,25 @@ import java.awt.Color;
 
 import net.iubris.aa.spheres.model.BoundingBox;
 import net.iubris.aa.spheres.model.DimensionBounds;
+import net.iubris.aa.spheres.volume.AbstractSpheresVolume;
 import edu.princeton.stddraw3d.StdDraw3D;
 import edu.princeton.stddraw3d.StdDraw3D.Shape;
 
 public abstract class AbstractRender {
 	
-	protected int drawBoundingBox(BoundingBox bb) {
-		DimensionBounds xDimension = bb.getxDimensionBounds();
-		DimensionBounds yDimension = bb.getYDimensionBounds();
-		DimensionBounds zDimension = bb.getZDimensionBounds();
+	protected final AbstractSpheresVolume spheresVolume;
+	protected final BoundingBox boundingBox;
+	protected int scale;
+
+	public AbstractRender(AbstractSpheresVolume spheresVolume) {
+		this.spheresVolume = spheresVolume;
+		boundingBox = spheresVolume.getBoundingBox();
+	}
+	
+	protected void drawBoundingBox() {
+		DimensionBounds xDimension = boundingBox.getxDimensionBounds();
+		DimensionBounds yDimension = boundingBox.getYDimensionBounds();
+		DimensionBounds zDimension = boundingBox.getZDimensionBounds();
 		
 		double xMax = xDimension.getMax();
 		double yMax = yDimension.getMax();
@@ -28,9 +38,9 @@ public abstract class AbstractRender {
 		
 		//System.out.println(xMin+"+("+xMax+"-"+xMin+")"+"/2");
 
-		double wbWidth = bb.getWidth()/2;
-		double wbHeight = bb.getHeight()/2;
-		double wbDepth = bb.getDepth()/2;
+		double wbWidth = boundingBox.getWidth()/2;
+		double wbHeight = boundingBox.getHeight()/2;
+		double wbDepth = boundingBox.getDepth()/2;
 		
 		System.out.println("(wbXCenter,wbYCenter,wbZCenter) wbWidth*wbHeight*wbDepth");
 		
@@ -45,11 +55,10 @@ public abstract class AbstractRender {
 				wbHeight
 				).setColor(Color.RED, 130);
 		
-		int maxScale = (int) Math.max( Math.max(xMax, yMax), zMax);
-		return maxScale;
+		this.scale = (int) Math.max( Math.max(xMax, yMax), zMax);
 	}
 	
-	protected void drawAxis(int scale) {
+	protected void drawAxis() {
 		StdDraw3D.setScale(-2*scale/3,2*scale/3);
 		
 		double[] axesUsed = new double[2];

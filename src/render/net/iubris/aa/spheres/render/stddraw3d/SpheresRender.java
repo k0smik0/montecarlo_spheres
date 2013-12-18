@@ -2,42 +2,40 @@ package net.iubris.aa.spheres.render.stddraw3d;
 
 import java.awt.Color;
 
-import net.iubris.aa.spheres.SpheresVolume;
 import net.iubris.aa.spheres.model.Point;
 import net.iubris.aa.spheres.model.Sphere;
+import net.iubris.aa.spheres.volume.sequential.SpheresVolumeSequential;
 import edu.princeton.stddraw3d.StdDraw3D;
 
 public class SpheresRender extends AbstractRender {
 	
-	private final SpheresVolume spheresVolume;
-	
-	public SpheresRender(SpheresVolume spheresVolume) {
-		this.spheresVolume = spheresVolume;
+	public SpheresRender(SpheresVolumeSequential spheresVolume) {
+		super(spheresVolume);
 	}
 
 	public void draw() {
 		StdDraw3D.setCanvasSize(1280, 800);
 		
-		int maxScale = drawBoundingBox(spheresVolume.getBoundingBox());
+		drawBoundingBox();
 		
-		drawAxis( maxScale );
+		drawAxis();
 		
-		drawSpheres(spheresVolume);
+		drawSpheres();
 		
-		drawPoints(spheresVolume);
+		drawPoints();
 
 		StdDraw3D.finished();
 		
 		System.out.println("");
 	}
 	
-	private static void drawSpheres(SpheresVolume sv) {
-		for (Sphere s: sv.getSpheres()) {
+	private void drawSpheres() {
+		for (Sphere s: spheresVolume.getSpheres()) {
 			StdDraw3D.wireSphere(s.getX(), s.getY(), s.getZ(), s.getRadius()).setColor(Color.BLUE, 50);
 		}
 	}
-	private static void drawPoints(SpheresVolume sv) {
-		Point[] randomPoints = sv.getRandomPoints();
+	private void drawPoints() {
+		Point[] randomPoints = spheresVolume.getRandomPoints();
 		int randomPointsHow = randomPoints.length;
 		double[] rxs = new double[randomPointsHow];
 		double[] rys = new double[randomPointsHow];

@@ -1,0 +1,185 @@
+package net.iubris.aa.spheres.volume.pyjama;//#GEN#[1]#PJ#
+//#GEN#[1]#PJ#
+import pj.parser.ast.visitor.DummyClassToDetermineVariableType;//#GEN#[1]#PJ#
+import pt.runtime.*;//#GEN#[1]#PJ#
+import pj.Pyjama;//#GEN#[1]#PJ#
+import pj.PJPackageOnly;//#GEN#[1]#PJ#
+import pj.UniqueThreadIdGeneratorForOpenMP;//#GEN#[1]#PJ#
+import pi.ParIteratorFactory;//#GEN#[1]#PJ#
+import pi.ParIterator;//#GEN#[1]#PJ#
+import pi.reductions.Reducible;//#GEN#[1]#PJ#
+import pi.reductions.Reduction;//#GEN#[1]#PJ#
+import java.util.concurrent.atomic.*;//#GEN#[1]#PJ#
+import java.util.concurrent.*;//#GEN#[1]#PJ#
+import java.awt.EventQueue;//#GEN#[1]#PJ#
+import java.util.concurrent.ExecutorService;//#GEN#[1]#PJ#
+import java.util.concurrent.Executors;//#GEN#[1]#PJ#
+import java.util.concurrent.TimeUnit;//#GEN#[1]#PJ#
+import javax.swing.SwingUtilities;//#GEN#[1]#PJ#
+import pj.parser.ast.visitor.DummyClassToDetermineVariableType;//#GEN#[3]#PJ#
+import java.util.LinkedList;//#GEN#[4]#PJ#
+import java.util.concurrent.CopyOnWriteArrayList;//#GEN#[5]#PJ#
+import net.iubris.aa.spheres.volume.AbstractSpheresVolume;//#GEN#[6]#PJ#
+import net.iubris.aa.spheres.model.Point;//#GEN#[7]#PJ#
+import net.iubris.aa.spheres.model.Sphere;//#GEN#[8]#PJ#
+//#GEN#[8]#PJ#
+import pi.reductions.Reducible;//#GEN#[8]#PJ#
+import java.util.*;//#GEN#[8]#PJ#
+//#GEN#[8]#PJ#
+public class SpheresVolumeMPPyjama extends AbstractSpheresVolume {//#GEN#[10]#PJ#
+    public SpheresVolumeMPPyjama(String inFileName, double randomPointsUsed) {//#GEN#[11]#PJ#
+        super(inFileName, randomPointsUsed);//#GEN#[12]#PJ#
+        this.randomPointsFound = new CopyOnWriteArrayList<Point>();//#GEN#[13]#PJ#
+    }@Override //#GEN#[14]#PJ#
+    public void calculate() {{//#GEN#[16]#PJ#
+        checkPointsByPyjama();//#GEN#[17]#PJ#
+        calculateVolume();//#GEN#[18]#PJ#
+    }
+    }
+    static private ArrayList<ParIterator<?>> _omp_piVarContainer = new ArrayList<ParIterator<?>>();//#GEN#[-1]#PJ#
+static private AtomicBoolean _holderForPIFirst= new AtomicBoolean(false);//#GEN#[-1]#PJ#
+
+    protected void checkPointsByPyjama() {{//#GEN#[20]#PJ#
+        int howSpheres = spheres.length;//#GEN#[21]#PJ#
+        /*OpenMP Parallel region (#0) -- START *///#GEN#[22]#PJ#
+        if(Pyjama.insideParallelRegion() ) {//#GEN#[22]#PJ#
+            /* If already inside a parallel region, execute sequentially (nested parallelism currently not supported) *///#GEN#[22]#PJ#
+            {//#GEN#[23]#PJ#
+                for (int i = 0; i < randomPointsUsed; i = i+1) //#GEN#[25]#PJ#
+                {//#GEN#[25]#PJ#
+                    Point rp = randomPoints[i];//#GEN#[26]#PJ#
+                    for (int j = 0; j < howSpheres; j++) //#GEN#[27]#PJ#
+                    {//#GEN#[27]#PJ#
+                        Sphere s = spheres[j];//#GEN#[28]#PJ#
+                        if (s.contains(rp)) //#GEN#[29]#PJ#
+                        {//#GEN#[29]#PJ#
+                            randomPointsFoundedNumber++;//#GEN#[30]#PJ#
+                            storeMoreInfo(s, rp);//#GEN#[31]#PJ#
+                            break;//#GEN#[32]#PJ#
+                        }//#GEN#[33]#PJ#
+                    }//#GEN#[34]#PJ#
+                }//#GEN#[35]#PJ#
+            }//#GEN#[36]#PJ#
+        } else {//#GEN#[22]#PJ#
+            /* Else, execute in parallel *///#GEN#[22]#PJ#
+            PJPackageOnly.setThreadCountCurrentParallelRegion(Pyjama.omp_get_num_threads());//#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+            /* Process data clauses *///#GEN#[22]#PJ#
+            _omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0 _omp__parallelRegionVarHolderInstance_0 = new _omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0();//#GEN#[22]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.howSpheres = howSpheres; // auto-saving//#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+            /* Execute using traditional OpenMP (master thread part of the team) *///#GEN#[22]#PJ#
+            PJPackageOnly.setMasterThread(Thread.currentThread());//#GEN#[22]#PJ#
+            TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
+            __pt___ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
+            try {_omp__parallelRegionTaskID_0.waitTillFinished();} catch(Exception __pt__ex) { __pt__ex.printStackTrace(); }//#GEN#[22]#PJ#
+            //#GEN#[22]#PJ#
+            PJPackageOnly.setMasterThread(null);//#GEN#[22]#PJ#
+            _holderForPIFirst.set(true);//#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+            howSpheres=_omp__parallelRegionVarHolderInstance_0.howSpheres; // auto-saved//#GEN#[22]#PJ#
+            PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[22]#PJ#
+        }//#GEN#[22]#PJ#
+        /*OpenMP Parallel region (#0) -- END *///#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+    }
+    }
+        private AtomicBoolean _imFirst_2 = new AtomicBoolean(true);//#GEN#[-1]#PJ#
+    private AtomicInteger _numAssigned_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
+    private AtomicInteger _imFinishedCounter_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
+    private CountDownLatch _waitBarrier_2 = new CountDownLatch(1);//#GEN#[-1]#PJ#
+    private CountDownLatch _waitBarrierAfter_2 = new CountDownLatch(1);//#GEN#[-1]#PJ#
+    private ParIterator<Integer> _pi_2 = null;//#GEN#[-1]#PJ#
+    private Integer _lastElement_2 = null;//#GEN#[-1]#PJ#
+    private _ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables _ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables_instance = null;//#GEN#[-1]#PJ#
+        private void _ompWorkSharedUserCode_SpheresVolumeMPPyjama2(_ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables __omp_vars) {//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+        int howSpheres = __omp_vars.howSpheres; // Auto-saved//#GEN#[-1]#PJ#
+        Integer i;//#GEN#[-1]#PJ#
+        int __omp_strideAbs = 1<0?-(1):(1);//#GEN#[-1]#PJ#
+        while(true){//#GEN#[-1]#PJ#
+            int __omp_numBeenAssigned = _numAssigned_2.getAndAdd(__omp_strideAbs*1);//#GEN#[-1]#PJ#
+            if(__omp_numBeenAssigned >= randomPointsUsed-(0) )break;//#GEN#[-1]#PJ#
+            int __omp_start = (0) + __omp_numBeenAssigned;//#GEN#[-1]#PJ#
+            int __omp_stop = __omp_start + __omp_strideAbs*1-1;//#GEN#[-1]#PJ#
+            if (__omp_start > randomPointsUsed -__omp_strideAbs*1){	__omp_stop = randomPointsUsed-1;	}//#GEN#[-1]#PJ#
+            for(i = __omp_start; i<= __omp_stop; i= i+ __omp_strideAbs)//#GEN#[-1]#PJ#
+            //#GEN#[-1]#PJ#
+            {//#GEN#[25]#PJ#
+                Point rp = randomPoints[i];//#GEN#[26]#PJ#
+                for (int j = 0; j < howSpheres; j++) //#GEN#[27]#PJ#
+                {//#GEN#[27]#PJ#
+                    Sphere s = spheres[j];//#GEN#[28]#PJ#
+                    if (s.contains(rp)) //#GEN#[29]#PJ#
+                    {//#GEN#[29]#PJ#
+                        randomPointsFoundedNumber++;//#GEN#[30]#PJ#
+                        storeMoreInfo(s, rp);//#GEN#[31]#PJ#
+                        break;//#GEN#[32]#PJ#
+                    }//#GEN#[33]#PJ#
+                }//#GEN#[34]#PJ#
+            }//#GEN#[-1]#PJ#
+        }//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+    __omp_vars.howSpheres = howSpheres; // Re-collected//#GEN#[-1]#PJ#
+    }//#GEN#[-1]#PJ#
+    //#GEN#[-1]#PJ#
+    //#GEN#[-1]#PJ#
+    /* Parallel region, placed in a multi-task *///#GEN#[-1]#PJ#
+    TASK(Pyjama.omp_get_num_threads()-1) private void _ompParallelRegion_0(_omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0 __omp_vars) {//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+        int howSpheres = __omp_vars.howSpheres; // Auto-saved//#GEN#[-1]#PJ#
+        {//#GEN#[23]#PJ#
+            if ( Pyjama.insideParallelRegion() ) {//#GEN#[24]#PJ#
+                /* Share the following work-sharing construct amongst multiple threads only if inside a parallel region (need this check for orphaned work-sharing constructs) *///#GEN#[24]#PJ#
+                boolean _omp_imFirst = _imFirst_2.getAndSet(false);//#GEN#[24]#PJ#
+                _holderForPIFirst = _imFirst_2;//#GEN#[24]#PJ#
+                if (_omp_imFirst) {//#GEN#[24]#PJ#
+                    _ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables_instance = new _ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables();//#GEN#[24]#PJ#
+                    int __omp_size_ = 0;//#GEN#[24]#PJ#
+                    // TODO -- improve performance by calculating N from the parameters (as an equation) rather than looping//#GEN#[24]#PJ#
+                    for (int i = 0; i < randomPointsUsed; i = i+1) {//#GEN#[24]#PJ#
+                        _lastElement_2 = i;//#GEN#[24]#PJ#
+                        __omp_size_++;//#GEN#[24]#PJ#
+                        }//#GEN#[24]#PJ#
+                    _pi_2 = ParIteratorFactory.createParIterator(0, __omp_size_, 1, Pyjama.omp_get_num_threads(), ParIterator.Schedule.DYNAMIC, ParIterator.DEFAULT_CHUNKSIZE, false);//#GEN#[24]#PJ#
+                    _omp_piVarContainer.add(_pi_2); // for interrupt statement//#GEN#[24]#PJ#
+                    _pi_2.setThreadIdGenerator(new UniqueThreadIdGeneratorForOpenMP());//#GEN#[24]#PJ#
+                    _ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables_instance.howSpheres = howSpheres; // auto-saving//#GEN#[24]#PJ#
+                    _waitBarrier_2.countDown();//#GEN#[24]#PJ#
+                } else {//#GEN#[24]#PJ#
+                    try { _waitBarrier_2.await(); } catch (InterruptedException __omp__ie) { __omp__ie.printStackTrace(); }//#GEN#[24]#PJ#
+                }//#GEN#[24]#PJ#
+                _ompWorkSharedUserCode_SpheresVolumeMPPyjama2(_ompWorkSharedUserCode_SpheresVolumeMPPyjama2_variables_instance);//#GEN#[24]#PJ#
+                if (_imFinishedCounter_2.incrementAndGet() == PJPackageOnly.getThreadCountCurrentParallelRegion()) {//#GEN#[24]#PJ#
+                    _waitBarrierAfter_2.countDown();//#GEN#[24]#PJ#
+                } else {//#GEN#[24]#PJ#
+                    try { //#GEN#[24]#PJ#
+                        _waitBarrierAfter_2.await();//#GEN#[24]#PJ#
+                    } catch (InterruptedException __omp__ie) { //#GEN#[24]#PJ#
+                        __omp__ie.printStackTrace(); //#GEN#[24]#PJ#
+                    }//#GEN#[24]#PJ#
+                }//#GEN#[24]#PJ#
+//#GEN#[24]#PJ#
+            } else {//#GEN#[24]#PJ#
+                /* Otherwise, this orphaned work-sharing is not within a parallel region.. so execute sequentially *///#GEN#[24]#PJ#
+                for (int i = 0; i < randomPointsUsed; i = i+1) //#GEN#[25]#PJ#
+                {//#GEN#[25]#PJ#
+                    Point rp = randomPoints[i];//#GEN#[26]#PJ#
+                    for (int j = 0; j < __omp_vars.howSpheres; j++) //#GEN#[27]#PJ#
+                    {//#GEN#[27]#PJ#
+                        Sphere s = spheres[j];//#GEN#[28]#PJ#
+                        if (s.contains(rp)) //#GEN#[29]#PJ#
+                        {//#GEN#[29]#PJ#
+                            randomPointsFoundedNumber++;//#GEN#[30]#PJ#
+                            storeMoreInfo(s, rp);//#GEN#[31]#PJ#
+                            break;//#GEN#[32]#PJ#
+                        }//#GEN#[33]#PJ#
+                    }//#GEN#[34]#PJ#
+                }//#GEN#[35]#PJ#
+            }//#GEN#[35]#PJ#
+//#GEN#[35]#PJ#
+        }//#GEN#[36]#PJ#
+//#GEN#[36]#PJ#
+        __omp_vars.howSpheres = howSpheres; // restore auto-saved variable//#GEN#[36]#PJ#
+    }
+}//#GEN#[37]#PJ#
