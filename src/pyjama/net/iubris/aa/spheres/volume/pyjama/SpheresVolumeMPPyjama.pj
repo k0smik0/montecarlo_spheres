@@ -24,8 +24,9 @@ new CopyOnWriteArrayList<Point>();
 	
 	protected void checkPointsByPyjama() {
 		int howSpheres = spheres.length;
-		//#omp parallel for
+		//#omp parallel for async nowait
 		for (int i=0;i<randomPointsUsed;i++) {
+//			System.out.print( Pyjama.omp_get_thread_num()+" " );
 			Point rp = randomPoints[i];
 			for (int j=0;j<howSpheres;j++) {
 				Sphere s = spheres[j];

@@ -28,7 +28,7 @@ public class SVMainJomp {
 
 	private static void run(String fileName, double randomPoints, int numThreads) {
 		
-		OMP.setNumThreads(8);
+		OMP.setNumThreads(numThreads);
 //		SpheresVolumeMPJomp sv = new SpheresVolumeMPJomp( args[0], Double.parseDouble(args[1]) );
 		SpheresVolumeMPJomp sv = new SpheresVolumeMPJomp( fileName, randomPoints );
 		long start = System.currentTimeMillis();

@@ -14,7 +14,7 @@ import net.iubris.aa.spheres.model.Point;
 import net.iubris.aa.spheres.model.Sphere;
 import net.iubris.aa.spheres.model.Volume;
 
-public abstract class AbstractSpheresVolume /*implements ISpheresVolume*/ {
+public abstract class AbstractSpheresVolume implements SpheresVolume {
 	
 	protected Sphere[] spheres= null;
 	protected BoundingBox boundingBox = null;
@@ -229,7 +229,8 @@ public abstract class AbstractSpheresVolume /*implements ISpheresVolume*/ {
 		randomPointsFound.add(p);
 	}
 	
-	protected void calculateVolume() {
+	@Override
+	public void calculateVolume() {
 		double volumeTotalMontecarlo = ( (0.0+randomPointsFoundedNumber) / (0.0+randomPointsUsed) )*boundingBox.getVolume();
 		double volumeTotal = 0;
 		for (Sphere s: spheres) {
@@ -258,6 +259,7 @@ public abstract class AbstractSpheresVolume /*implements ISpheresVolume*/ {
 	}
 	
 	
+	@Override
 	public String getResult() {
 		double percent = randomPointsFoundedNumber*100.0f/randomPointsUsed;
 		Double boundingBoxVolume = boundingBox.getVolume();
@@ -269,18 +271,23 @@ public abstract class AbstractSpheresVolume /*implements ISpheresVolume*/ {
 		return r;
 	}
 	
+	@Override
 	public BoundingBox getBoundingBox() {
 		return boundingBox;
 	}
+	@Override
 	public Sphere[] getSpheres() {
 		return spheres;
 	}
+	@Override
 	public Point[] getRandomPoints() {
 		return randomPoints;
 	}
+	@Override
 	public Volume getVolume() {
 		return volume;
 	}
+	@Override
 	public List<Point> getRandomPointsFound() {
 		return randomPointsFound;
 	}

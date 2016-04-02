@@ -68,23 +68,42 @@ static private AtomicBoolean _holderForPIFirst= new AtomicBoolean(false);//#GEN#
             _omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0 _omp__parallelRegionVarHolderInstance_0 = new _omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0();//#GEN#[22]#PJ#
             _omp__parallelRegionVarHolderInstance_0.howSpheres = howSpheres; // auto-saving//#GEN#[22]#PJ#
 //#GEN#[22]#PJ#
-            /* Execute using traditional OpenMP (master thread part of the team) *///#GEN#[22]#PJ#
-            PJPackageOnly.setMasterThread(Thread.currentThread());//#GEN#[22]#PJ#
-            TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
-            __pt___ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
-            try {_omp__parallelRegionTaskID_0.waitTillFinished();} catch(Exception __pt__ex) { __pt__ex.printStackTrace(); }//#GEN#[22]#PJ#
-            //#GEN#[22]#PJ#
-            PJPackageOnly.setMasterThread(null);//#GEN#[22]#PJ#
-            _holderForPIFirst.set(true);//#GEN#[22]#PJ#
+            // Current Method: checkPointsByPyjama//#GEN#[22]#PJ#
+            boolean _omp_b_isInEventLoop = EventQueue.isDispatchThread();//#GEN#[22]#PJ#
 //#GEN#[22]#PJ#
-            howSpheres=_omp__parallelRegionVarHolderInstance_0.howSpheres; // auto-saved//#GEN#[22]#PJ#
-            PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[22]#PJ#
-        }//#GEN#[22]#PJ#
-        /*OpenMP Parallel region (#0) -- END *///#GEN#[22]#PJ#
+            if(true == _omp_b_isInEventLoop){//#GEN#[22]#PJ#
+                /* NOGUI: The rest of the statements originally inside "checkPointsByPyjama" have been moved into the notify method: "_ompNotifyMethod_0" *///#GEN#[22]#PJ#
+                try {//#GEN#[22]#PJ#
+                    EventLoop.register();//#GEN#[22]#PJ#
+                } catch(Exception e){ /* not throwing an exception *///#GEN#[22]#PJ#
+                } finally { /* If fails to register, it already has its EventLoop */ }//#GEN#[22]#PJ#
+                TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0) //#GEN#[22]#PJ#
+                    notify(_ompNotifyMethod_0(TaskID));//#GEN#[22]#PJ#
+                try {//#GEN#[22]#PJ#
+                    EventLoop.exec();//#GEN#[22]#PJ#
+                    EventLoop.quit();//#GEN#[22]#PJ#
+                } catch(Exception e){ /* not throwing an exception *///#GEN#[22]#PJ#
+                } finally { return ; /* If fails to exec, it already has its EventLoop */ }//#GEN#[22]#PJ#
 //#GEN#[22]#PJ#
-    }
-    }
-        private AtomicBoolean _imFirst_2 = new AtomicBoolean(true);//#GEN#[-1]#PJ#
+                } else {//#GEN#[22]#PJ#
+                    /* Execute using traditional OpenMP (master thread part of the team) *///#GEN#[22]#PJ#
+                    PJPackageOnly.setMasterThread(Thread.currentThread());//#GEN#[22]#PJ#
+                    TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
+                    __pt___ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[22]#PJ#
+                    try {_omp__parallelRegionTaskID_0.waitTillFinished();} catch(Exception __pt__ex) { __pt__ex.printStackTrace(); }//#GEN#[22]#PJ#
+                    //#GEN#[22]#PJ#
+                    PJPackageOnly.setMasterThread(null);//#GEN#[22]#PJ#
+                    _holderForPIFirst.set(true);//#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+                    howSpheres=_omp__parallelRegionVarHolderInstance_0.howSpheres; // auto-saved//#GEN#[22]#PJ#
+                    PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[22]#PJ#
+                }//#GEN#[22]#PJ#
+            }//#GEN#[22]#PJ#
+            /*OpenMP Parallel region (#0) -- END *///#GEN#[22]#PJ#
+//#GEN#[22]#PJ#
+        }
+        }
+            private AtomicBoolean _imFirst_2 = new AtomicBoolean(true);//#GEN#[-1]#PJ#
     private AtomicInteger _numAssigned_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
     private AtomicInteger _imFinishedCounter_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
     private CountDownLatch _waitBarrier_2 = new CountDownLatch(1);//#GEN#[-1]#PJ#
@@ -182,4 +201,13 @@ static private AtomicBoolean _holderForPIFirst= new AtomicBoolean(false);//#GEN#
 //#GEN#[36]#PJ#
         __omp_vars.howSpheres = howSpheres; // restore auto-saved variable//#GEN#[36]#PJ#
     }
-}//#GEN#[37]#PJ#
+        protected void _ompNotifyMethod_0(TaskID id) {{//#GEN#[37]#PJ#
+            _omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0 __omp_vars = (_omp__parallelRegionVarHolderClass_SpheresVolumeMPPyjama0) id.getTaskArguments()[0];//#GEN#[37]#PJ#
+            int howSpheres = __omp_vars.howSpheres; // auto-saved fakestatment//#GEN#[37]#PJ#
+            PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[37]#PJ#
+            _holderForPIFirst.set(true);//#GEN#[37]#PJ#
+        }
+        }
+        
+//#GEN#[0]#PJ#
+    }//#GEN#[0]#PJ#

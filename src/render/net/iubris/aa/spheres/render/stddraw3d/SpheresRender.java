@@ -4,12 +4,12 @@ import java.awt.Color;
 
 import net.iubris.aa.spheres.model.Point;
 import net.iubris.aa.spheres.model.Sphere;
-import net.iubris.aa.spheres.volume.sequential.SpheresVolumeSequential;
+import net.iubris.aa.spheres.volume.SpheresVolume;
 import edu.princeton.stddraw3d.StdDraw3D;
 
 public class SpheresRender extends AbstractRender {
 	
-	public SpheresRender(SpheresVolumeSequential spheresVolume) {
+	public SpheresRender(SpheresVolume spheresVolume) {
 		super(spheresVolume);
 	}
 

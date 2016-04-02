@@ -8,14 +8,15 @@ import net.iubris.aa.spheres.volume.pyjama.SpheresVolumeMPPyjama;
 public class SVMainRenderStddraw3d {
 	
 	public static void main(String[] args) {
-		new SpheresByPointsRenderPyJava( 
-				calculateSpheresVolume("ds/sfere1.in", "sfere indipendenti", 1e5 ) )
-		.draw();
+		AbstractSpheresVolume volume = calculateSpheresVolume("ds/sfere1.in", "sfere indipendenti", 1e5 );
+		new SpheresByPointsRenderPyJava(volume).draw();
+//		new SpheresRender( volume ).draw();
 	}
 	
 	private static AbstractSpheresVolume calculateSpheresVolume(String inFileName, String title, double howRandoms) {
 		System.out.println(""+title+" con "+howRandoms+" punti");
-		AbstractSpheresVolume sv = new SpheresVolumeMPPyjama(inFileName,howRandoms);
+		AbstractSpheresVolume sv = 
+				new SpheresVolumeMPPyjama(inFileName,howRandoms);
 		try {
 			sv.parseInFile();
 		} catch (IOException e) {

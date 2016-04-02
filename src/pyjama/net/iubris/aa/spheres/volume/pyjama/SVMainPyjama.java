@@ -13,7 +13,7 @@ public class SVMainPyjama {
 //		Pyjama.omp_set_num_threads(8);
 		
 		for (double r=1e0;r<1e8; r=r*10 ) {
-			run("ds/sfere1.in", r, 8);
+			run("ds/sfere1.in", r, 4);
 		}
 //		run("ds/sfere1.in", 1e8, 8);
 	}
@@ -21,7 +21,9 @@ public class SVMainPyjama {
 	private static void run(String fileName, double randomPoints, int numThreads) {
 		
 //		SpheresVolumeMPJomp sv = new SpheresVolumeMPJomp( args[0], Double.parseDouble(args[1]) );
-		Pyjama.omp_set_num_threads(1);
+//		Pyjama.omp_set_num_threads(numThreads);
+//		System.out.println( Pyjama.omp_get_max_threads() );
+//		System.out.println( Pyjama.omp_get_thread_num()+" " );
 		SpheresVolumeMPPyjama sv = new SpheresVolumeMPPyjama( fileName, randomPoints );
 		long start = System.currentTimeMillis();
 		try {

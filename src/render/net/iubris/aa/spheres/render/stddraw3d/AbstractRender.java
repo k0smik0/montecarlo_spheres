@@ -4,17 +4,17 @@ import java.awt.Color;
 
 import net.iubris.aa.spheres.model.BoundingBox;
 import net.iubris.aa.spheres.model.DimensionBounds;
-import net.iubris.aa.spheres.volume.AbstractSpheresVolume;
+import net.iubris.aa.spheres.volume.SpheresVolume;
 import edu.princeton.stddraw3d.StdDraw3D;
 import edu.princeton.stddraw3d.StdDraw3D.Shape;
 
 public abstract class AbstractRender {
 	
-	protected final AbstractSpheresVolume spheresVolume;
+	protected final SpheresVolume spheresVolume;
 	protected final BoundingBox boundingBox;
 	protected int scale;
 
-	public AbstractRender(AbstractSpheresVolume spheresVolume) {
+	public AbstractRender(SpheresVolume spheresVolume) {
 		this.spheresVolume = spheresVolume;
 		boundingBox = spheresVolume.getBoundingBox();
 	}
