@@ -20,7 +20,7 @@ As pleasant bonus, the java version provides a visualization on a 3D cartesian p
 Run it, and enjoy yourself ;D
 
 ----
-Below, images from java computations (chart images from benchmark are also available [here](https://github.com/k0smik0/montecarlo_spheres/tree/master/java/montecarlo_spheres_java/images)):
+Below, images from java computations (click to zoom):
 
 <div> <span>
 <img alt="1000_random_spheres" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d.png" 
