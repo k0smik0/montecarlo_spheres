@@ -10,7 +10,7 @@ The Java version is my personal experiment, and it would compare various librari
 As pleasant bonus, the java version provides a visualization on a 3D cartesian plot using j3d ;D
 
 ##### update: from Java8 we have functional paradigm and a new api for task-parallel, applied on functional syntax (the 'Stream'), so jomp and pyjama could be considered as obsolete/useless, but you never know ;D
-#### For jCuda, it's a different situation: it parallelize computation on video card (if found), exploiting nvidia pipelines, or multicore environment (if found) in a transparent way - à la omp, but in a more powerful manner, isn't?
+	#### For jCuda, it's a different situation: it parallelize computation on video card (if found), exploiting nvidia pipelines, or multicore environment (if found) in a transparent way - à la omp, but in a more powerful manner, isn't?
 
 
 Run it, and enjoy yourself ;D
