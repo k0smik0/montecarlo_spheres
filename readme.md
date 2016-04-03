@@ -17,23 +17,23 @@ Run it, and enjoy yourself ;D
 
 Below, images from java computations:
 
-<img src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d.png" 
-height="100" alt="1000_random_spheres">
-![1000_random_spheres](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d.png)
+<img alt="1000_random_spheres" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d.png" 
+height="200" >
 
-![1000_random_spheres_only_points](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d_only_found_points.png)
+<img alt="1000_random_spheres_only_points" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_casuali_3d_only_found_points.png" height="200">
 
-![1000_concentric_spheres](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_concentriche.png)
+<img alt="1000_concentric_spheres" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_concentriche.png" height="200" >
 
-![1000_concentric_spheres_only_points](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_concentriche_3d_only_found_points.png)
+<img alt="1000_concentric_spheres_only_points" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_concentriche_3d_only_found_points.png" height="200" >
 
-![1000_not_intersecting_nor_tangent_spheres](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_non_intersecanti_ne_tangenti.png)
+<img alt="1000_not_intersecting_nor_tangent_spheres" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_non_intersecanti_ne_tangenti.png" height="200" >
 
-![1000_not_intersecting_nor_tangent_spheres_only_points](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_non_intersecanti_ne_tangenti_3d_only_found_points.png)
+<img alt="1000_not_intersecting_nor_tangent_spheres_only_points" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/1000_sfere_non_intersecanti_ne_tangenti_3d_only_found_points.png" height="200" >
 
-![other_spheres](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/altre_sfere_3d.png)
+<img alt="other_spheres" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/altre_sfere_3d.png" height="200">
 
-![other_spheres_only_points](https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/altre_sfere_3d_only_found_points.png)
+<img alt="other_spheres_only_points" src="https://raw.githubusercontent.com/k0smik0/montecarlo_spheres/master/java/montecarlo_spheres_java/images/altre_sfere_3d_only_found_points.png" 
+height="200" >
 
 
 
