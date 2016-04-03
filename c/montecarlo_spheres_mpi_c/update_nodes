@@ -1,0 +1,7 @@
+#!/bin/bash
+
+parallel-scp -h scp_hosts.txt Release/montecarlo_spheres_c_mpi /home/students/mleone/mcs/
+scp src/montecarlo_spheres_c_mpi.c nj5:/home/students/mleone/mcs/src/openmpi/
+
+scp src/montecarlo_spheres_c_mpi.c ecs:~/mcs/
+ssh ecs "cd mcs; ./compile"

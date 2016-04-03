@@ -1,0 +1,3 @@
+#!/bin/sh
+
+scp ms* nj5:/home/students/mleone/mcs/src/omp/
