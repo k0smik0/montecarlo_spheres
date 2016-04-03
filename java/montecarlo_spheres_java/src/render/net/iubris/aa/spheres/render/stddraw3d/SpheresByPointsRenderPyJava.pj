@@ -1,0 +1,102 @@
+package net.iubris.aa.spheres.render.stddraw3d;
+
+import java.awt.Color;
+
+import javax.media.j3d.RestrictedAccessException;
+
+import net.iubris.aa.spheres.model.Point;
+import net.iubris.aa.spheres.volume.AbstractSpheresVolume;
+import edu.princeton.stddraw3d.StdDraw3D;
+
+public class SpheresByPointsRenderPyJava extends AbstractRender {
+
+	public SpheresByPointsRenderPyJava(AbstractSpheresVolume spheresVolume) {
+		super(spheresVolume);
+	}
+	
+	public void draw() {
+		StdDraw3D.setCanvasSize(1280, 800);
+		
+		drawBoundingBox();
+		
+		drawAxis();
+		
+		drawSpheresByPoints();
+		
+		StdDraw3D.finished();
+//		StdDraw3D.show();
+	}
+	
+	private void drawSpheresByPoints() {
+		Point[] randomPoints = spheresVolume.getRandomPointsFound().toArray( new Point[0] );
+		int randomPointsHow = randomPoints.length;
+/*
+		double[] rxs = new double[randomPointsHow];
+		double[] rys = new double[randomPointsHow];
+		double[] rzs = new double[randomPointsHow];
+		//#omp parallel freeguithread
+		{
+			//#omp for
+			for (int i=0;i<randomPointsHow;i++) {
+				Point randomPoint = randomPoints[i];
+				rxs[i] = randomPoint.getX();
+				rys[i] = randomPoint.getY();
+				rzs[i] = randomPoint.getZ();
+			}
+			//#omp gui 
+			{
+				StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);
+			}
+		}
+		*/
+/*
+System.out.println(randomPointsHow);
+		int found=0;
+		
+			//#omp parallel for freeguithread shared(found)
+			for (int i=0;i<randomPointsHow;i++) {
+				try {
+					Point randomPoint = randomPoints[i];
+					double rx = randomPoint.getX();
+					double ry = randomPoint.getY();
+					double rz = randomPoint.getZ();
+//					System.out.println(rx+" "+ry+" "+rz);
+					//#omp gui nowait
+					{
+						StdDraw3D.point(rx, ry, rz).setColor(Color.GREEN, 80);
+					}
+					found++;
+				} catch (NullPointerException e) {
+//					System.out.print(i+" ");
+				}
+			}
+			System.out.println(found);
+*/
+		double[] rxs = new double[randomPointsHow];
+		double[] rys = new double[randomPointsHow];
+		double[] rzs = new double[randomPointsHow];
+		System.out.println("randomPointsHow: "+randomPointsHow);
+		int found=0;
+		int notFound=0;
+		//#omp parallel for freeguithread reduction(+:found) reduction(+:notFound)
+		for (int i=0;i<randomPointsHow;i++) {
+			try {
+				Point randomPoint = randomPoints[i];
+				rxs[i] = randomPoint.getX();
+				rys[i] = randomPoint.getY();
+				rzs[i] = randomPoint.getZ();
+				found++;
+//				System.out.println(i+","+found+" ");
+			} catch (NullPointerException e) {
+				System.out.println("e:"+i);;
+				notFound++;
+			}
+		}
+		System.out.println("found: "+found);
+		System.out.println("notFound: "+notFound);
+		//#omp gui nowait
+		{
+			StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);
+		}
+	}
+}

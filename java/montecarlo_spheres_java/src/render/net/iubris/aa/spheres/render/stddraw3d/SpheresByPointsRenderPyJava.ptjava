@@ -1,0 +1,347 @@
+package net.iubris.aa.spheres.render.stddraw3d;//#GEN#[1]#PJ#
+//#GEN#[1]#PJ#
+import pj.parser.ast.visitor.DummyClassToDetermineVariableType;//#GEN#[1]#PJ#
+import pt.runtime.*;//#GEN#[1]#PJ#
+import pj.Pyjama;//#GEN#[1]#PJ#
+import pj.PJPackageOnly;//#GEN#[1]#PJ#
+import pj.UniqueThreadIdGeneratorForOpenMP;//#GEN#[1]#PJ#
+import pi.ParIteratorFactory;//#GEN#[1]#PJ#
+import pi.ParIterator;//#GEN#[1]#PJ#
+import pi.reductions.Reducible;//#GEN#[1]#PJ#
+import pi.reductions.Reduction;//#GEN#[1]#PJ#
+import java.util.concurrent.atomic.*;//#GEN#[1]#PJ#
+import java.util.concurrent.*;//#GEN#[1]#PJ#
+import java.awt.EventQueue;//#GEN#[1]#PJ#
+import java.util.concurrent.ExecutorService;//#GEN#[1]#PJ#
+import java.util.concurrent.Executors;//#GEN#[1]#PJ#
+import java.util.concurrent.TimeUnit;//#GEN#[1]#PJ#
+import javax.swing.SwingUtilities;//#GEN#[1]#PJ#
+import pj.parser.ast.visitor.DummyClassToDetermineVariableType;//#GEN#[3]#PJ#
+import java.awt.Color;//#GEN#[4]#PJ#
+import javax.media.j3d.RestrictedAccessException;//#GEN#[5]#PJ#
+import net.iubris.aa.spheres.model.Point;//#GEN#[6]#PJ#
+import net.iubris.aa.spheres.volume.AbstractSpheresVolume;//#GEN#[7]#PJ#
+import edu.princeton.stddraw3d.StdDraw3D;//#GEN#[8]#PJ#
+//#GEN#[8]#PJ#
+import pi.reductions.Reducible;//#GEN#[8]#PJ#
+import java.util.*;//#GEN#[8]#PJ#
+//#GEN#[8]#PJ#
+public class SpheresByPointsRenderPyJava extends AbstractRender {//#GEN#[10]#PJ#
+    public SpheresByPointsRenderPyJava(AbstractSpheresVolume spheresVolume) {//#GEN#[11]#PJ#
+        super(spheresVolume);//#GEN#[12]#PJ#
+    }public void draw() {{//#GEN#[14]#PJ#
+        StdDraw3D.setCanvasSize(1280, 800);//#GEN#[15]#PJ#
+        drawBoundingBox();//#GEN#[16]#PJ#
+        drawAxis();//#GEN#[17]#PJ#
+        drawSpheresByPoints();//#GEN#[18]#PJ#
+        StdDraw3D.finished();//#GEN#[19]#PJ#
+    }
+    }
+    static private ArrayList<ParIterator<?>> _omp_piVarContainer = new ArrayList<ParIterator<?>>();//#GEN#[-1]#PJ#
+static private AtomicBoolean _holderForPIFirst= new AtomicBoolean(false);//#GEN#[-1]#PJ#
+
+    private void drawSpheresByPoints() {{//#GEN#[21]#PJ#
+        Point[] randomPoints = spheresVolume.getRandomPointsFound().toArray(new Point[0]);//#GEN#[22]#PJ#
+        int randomPointsHow = randomPoints.length;//#GEN#[23]#PJ#
+        double[] rxs = new double[randomPointsHow];//#GEN#[24]#PJ#
+        double[] rys = new double[randomPointsHow];//#GEN#[25]#PJ#
+        double[] rzs = new double[randomPointsHow];//#GEN#[26]#PJ#
+        System.out.println("randomPointsHow: " + randomPointsHow);//#GEN#[27]#PJ#
+        int found = 0;//#GEN#[28]#PJ#
+        int notFound = 0;//#GEN#[29]#PJ#
+        /*OpenMP Parallel region (#0) -- START *///#GEN#[30]#PJ#
+        if(Pyjama.insideParallelRegion() ) {//#GEN#[30]#PJ#
+            /* If already inside a parallel region, execute sequentially (nested parallelism currently not supported) *///#GEN#[30]#PJ#
+            {//#GEN#[31]#PJ#
+                for (int i = 0; i < randomPointsHow; i = i+1) //#GEN#[33]#PJ#
+                {//#GEN#[33]#PJ#
+                    try {//#GEN#[34]#PJ#
+                        Point randomPoint = randomPoints[i];//#GEN#[35]#PJ#
+                        rxs[i] = randomPoint.getX();//#GEN#[36]#PJ#
+                        rys[i] = randomPoint.getY();//#GEN#[37]#PJ#
+                        rzs[i] = randomPoint.getZ();//#GEN#[38]#PJ#
+                        found++;//#GEN#[39]#PJ#
+                    } catch (NullPointerException e) {//#GEN#[40]#PJ#
+                        System.out.println("e:" + i);//#GEN#[41]#PJ#
+                        ;//#GEN#[42]#PJ#
+                        notFound++;//#GEN#[43]#PJ#
+                    }//#GEN#[44]#PJ#
+                }//#GEN#[45]#PJ#
+            }//#GEN#[46]#PJ#
+        } else {//#GEN#[30]#PJ#
+            /* Else, execute in parallel *///#GEN#[30]#PJ#
+            PJPackageOnly.setThreadCountCurrentParallelRegion(Pyjama.omp_get_num_threads());//#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+            /* Process data clauses *///#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderClass_SpheresByPointsRenderPyJava0 _omp__parallelRegionVarHolderInstance_0 = new _omp__parallelRegionVarHolderClass_SpheresByPointsRenderPyJava0();//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.rys = rys; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.rzs = rzs; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.randomPoints = randomPoints; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.randomPointsHow = randomPointsHow; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.notFound = notFound; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.rxs = rxs; // auto-saving//#GEN#[30]#PJ#
+            _omp__parallelRegionVarHolderInstance_0.found = found; // auto-saving//#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+            // Current Method: drawSpheresByPoints//#GEN#[30]#PJ#
+            boolean _omp_b_isInEventLoop = EventQueue.isDispatchThread();//#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+            if(true == _omp_b_isInEventLoop){//#GEN#[30]#PJ#
+                /* NOGUI: The rest of the statements originally inside "drawSpheresByPoints" have been moved into the notify method: "_ompNotifyMethod_0" *///#GEN#[30]#PJ#
+                try {//#GEN#[30]#PJ#
+                    EventLoop.register();//#GEN#[30]#PJ#
+                } catch(Exception e){ /* not throwing an exception *///#GEN#[30]#PJ#
+                } finally { /* If fails to register, it already has its EventLoop */ }//#GEN#[30]#PJ#
+                TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0) //#GEN#[30]#PJ#
+                    notify(_ompNotifyMethod_0(TaskID));//#GEN#[30]#PJ#
+                try {//#GEN#[30]#PJ#
+                    EventLoop.exec();//#GEN#[30]#PJ#
+                    EventLoop.quit();//#GEN#[30]#PJ#
+                } catch(Exception e){ /* not throwing an exception *///#GEN#[30]#PJ#
+                } finally { return ; /* If fails to exec, it already has its EventLoop */ }//#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+                } else {//#GEN#[30]#PJ#
+                    /* Execute using traditional OpenMP (master thread part of the team) *///#GEN#[30]#PJ#
+                    PJPackageOnly.setMasterThread(Thread.currentThread());//#GEN#[30]#PJ#
+                    TaskID _omp__parallelRegionTaskID_0 = _ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[30]#PJ#
+                    __pt___ompParallelRegion_0(_omp__parallelRegionVarHolderInstance_0);//#GEN#[30]#PJ#
+                    try {_omp__parallelRegionTaskID_0.waitTillFinished();} catch(Exception __pt__ex) { __pt__ex.printStackTrace(); }//#GEN#[30]#PJ#
+                    //#GEN#[30]#PJ#
+                    PJPackageOnly.setMasterThread(null);//#GEN#[30]#PJ#
+                    _holderForPIFirst.set(true);//#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+                    rys=_omp__parallelRegionVarHolderInstance_0.rys; // auto-saved//#GEN#[30]#PJ#
+                    rzs=_omp__parallelRegionVarHolderInstance_0.rzs; // auto-saved//#GEN#[30]#PJ#
+                    randomPoints=_omp__parallelRegionVarHolderInstance_0.randomPoints; // auto-saved//#GEN#[30]#PJ#
+                    randomPointsHow=_omp__parallelRegionVarHolderInstance_0.randomPointsHow; // auto-saved//#GEN#[30]#PJ#
+                    notFound=_omp__parallelRegionVarHolderInstance_0.notFound; // auto-saved//#GEN#[30]#PJ#
+                    rxs=_omp__parallelRegionVarHolderInstance_0.rxs; // auto-saved//#GEN#[30]#PJ#
+                    found=_omp__parallelRegionVarHolderInstance_0.found; // auto-saved//#GEN#[30]#PJ#
+                    PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[30]#PJ#
+                }//#GEN#[30]#PJ#
+            }//#GEN#[30]#PJ#
+            /*OpenMP Parallel region (#0) -- END *///#GEN#[30]#PJ#
+//#GEN#[30]#PJ#
+            System.out.println("found: " + found);//#GEN#[47]#PJ#
+            System.out.println("notFound: " + notFound);//#GEN#[48]#PJ#
+            {//#GEN#[50]#PJ#
+                StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);//#GEN#[51]#PJ#
+            }/* GUI: Specific code *///#GEN#[49]#PJ#
+            boolean _omp_b_isInEventLoop = EventQueue.isDispatchThread();//#GEN#[49]#PJ#
+//#GEN#[49]#PJ#
+            if(false == _omp_b_isInEventLoop){//#GEN#[49]#PJ#
+                /* Not in EDT: Putting the code to EDT *///#GEN#[49]#PJ#
+                final double[] _omp_gui_4rys = rys; // auto-saving//#GEN#[49]#PJ#
+                final double[] _omp_gui_4rzs = rzs; // auto-saving//#GEN#[49]#PJ#
+                final Point[] _omp_gui_4randomPoints = randomPoints; // auto-saving//#GEN#[49]#PJ#
+                final int _omp_gui_4randomPointsHow = randomPointsHow; // auto-saving//#GEN#[49]#PJ#
+                final int _omp_gui_4notFound = notFound; // auto-saving//#GEN#[49]#PJ#
+                final double[] _omp_gui_4rxs = rxs; // auto-saving//#GEN#[49]#PJ#
+                final int _omp_gui_4found = found; // auto-saving//#GEN#[49]#PJ#
+//#GEN#[49]#PJ#
+                try {//#GEN#[49]#PJ#
+                    SwingUtilities.invokeLater(new Runnable(){//#GEN#[49]#PJ#
+                        public void run()//#GEN#[49]#PJ#
+                        {//#GEN#[50]#PJ#
+                            StdDraw3D.points(_omp_gui_4rxs, _omp_gui_4rys, _omp_gui_4rzs).setColor(Color.GREEN, 80);//#GEN#[51]#PJ#
+                        }//#GEN#[52]#PJ#
+                    });//#GEN#[52]#PJ#
+                } catch (Exception e) {//#GEN#[52]#PJ#
+                    e.printStackTrace();//#GEN#[52]#PJ#
+                }//#GEN#[52]#PJ#
+                } else {//#GEN#[52]#PJ#
+                    /* In EDT: Running the code *///#GEN#[52]#PJ#
+                    {//#GEN#[52]#PJ#
+                        StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);//#GEN#[52]#PJ#
+                    }//#GEN#[52]#PJ#
+                }//#GEN#[52]#PJ#
+//#GEN#[52]#PJ#
+            }
+            }
+                private AtomicBoolean _imFirst_2 = new AtomicBoolean(true);//#GEN#[-1]#PJ#
+    private AtomicInteger _numAssigned_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
+    private AtomicInteger _imFinishedCounter_2 = new AtomicInteger(0);//#GEN#[-1]#PJ#
+    private CountDownLatch _waitBarrier_2 = new CountDownLatch(1);//#GEN#[-1]#PJ#
+    private CountDownLatch _waitBarrierAfter_2 = new CountDownLatch(1);//#GEN#[-1]#PJ#
+    private ParIterator<Integer> _pi_2 = null;//#GEN#[-1]#PJ#
+    private Integer _lastElement_2 = null;//#GEN#[-1]#PJ#
+    private _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance = null;//#GEN#[-1]#PJ#
+        private void _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2(_ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables __omp_vars) {//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+        int found = __omp_vars.found[Pyjama.omp_get_thread_num()];//#GEN#[-1]#PJ#
+        int notFound = __omp_vars.notFound[Pyjama.omp_get_thread_num()];//#GEN#[-1]#PJ#
+        double[] rys = __omp_vars.rys; // Auto-saved//#GEN#[-1]#PJ#
+        double[] rzs = __omp_vars.rzs; // Auto-saved//#GEN#[-1]#PJ#
+        Point[] randomPoints = __omp_vars.randomPoints; // Auto-saved//#GEN#[-1]#PJ#
+        int randomPointsHow = __omp_vars.randomPointsHow; // Auto-saved//#GEN#[-1]#PJ#
+        double[] rxs = __omp_vars.rxs; // Auto-saved//#GEN#[-1]#PJ#
+        Integer i;//#GEN#[-1]#PJ#
+        int __omp_strideAbs = 1<0?-(1):(1);//#GEN#[-1]#PJ#
+        while(true){//#GEN#[-1]#PJ#
+            int __omp_numBeenAssigned = _numAssigned_2.getAndAdd(__omp_strideAbs*1);//#GEN#[-1]#PJ#
+            if(__omp_numBeenAssigned >= randomPointsHow-(0) )break;//#GEN#[-1]#PJ#
+            int __omp_start = (0) + __omp_numBeenAssigned;//#GEN#[-1]#PJ#
+            int __omp_stop = __omp_start + __omp_strideAbs*1-1;//#GEN#[-1]#PJ#
+            if (__omp_start > randomPointsHow -__omp_strideAbs*1){	__omp_stop = randomPointsHow-1;	}//#GEN#[-1]#PJ#
+            for(i = __omp_start; i<= __omp_stop; i= i+ __omp_strideAbs)//#GEN#[-1]#PJ#
+            //#GEN#[-1]#PJ#
+            {//#GEN#[33]#PJ#
+                try {//#GEN#[34]#PJ#
+                    Point randomPoint = randomPoints[i];//#GEN#[35]#PJ#
+                    rxs[i] = randomPoint.getX();//#GEN#[36]#PJ#
+                    rys[i] = randomPoint.getY();//#GEN#[37]#PJ#
+                    rzs[i] = randomPoint.getZ();//#GEN#[38]#PJ#
+                    found++;//#GEN#[39]#PJ#
+                } catch (NullPointerException e) {//#GEN#[40]#PJ#
+                    System.out.println("e:" + i);//#GEN#[41]#PJ#
+                    ;//#GEN#[42]#PJ#
+                    notFound++;//#GEN#[43]#PJ#
+                }//#GEN#[44]#PJ#
+            }//#GEN#[-1]#PJ#
+        }//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+    __omp_vars.reducible_found.set(found);//#GEN#[-1]#PJ#
+    __omp_vars.reducible_notFound.set(notFound);//#GEN#[-1]#PJ#
+    __omp_vars.rys = rys; // Re-collected//#GEN#[-1]#PJ#
+    __omp_vars.rzs = rzs; // Re-collected//#GEN#[-1]#PJ#
+    __omp_vars.randomPoints = randomPoints; // Re-collected//#GEN#[-1]#PJ#
+    __omp_vars.randomPointsHow = randomPointsHow; // Re-collected//#GEN#[-1]#PJ#
+    __omp_vars.rxs = rxs; // Re-collected//#GEN#[-1]#PJ#
+    }//#GEN#[-1]#PJ#
+    //#GEN#[-1]#PJ#
+    //#GEN#[-1]#PJ#
+    /* Parallel region, placed in a multi-task *///#GEN#[-1]#PJ#
+    TASK(Pyjama.omp_get_num_threads()-1) private void _ompParallelRegion_0(_omp__parallelRegionVarHolderClass_SpheresByPointsRenderPyJava0 __omp_vars) {//#GEN#[-1]#PJ#
+//#GEN#[-1]#PJ#
+        double[] rys = __omp_vars.rys; // Auto-saved//#GEN#[-1]#PJ#
+        double[] rzs = __omp_vars.rzs; // Auto-saved//#GEN#[-1]#PJ#
+        Point[] randomPoints = __omp_vars.randomPoints; // Auto-saved//#GEN#[-1]#PJ#
+        int randomPointsHow = __omp_vars.randomPointsHow; // Auto-saved//#GEN#[-1]#PJ#
+        int notFound = __omp_vars.notFound; // Auto-saved//#GEN#[-1]#PJ#
+        double[] rxs = __omp_vars.rxs; // Auto-saved//#GEN#[-1]#PJ#
+        int found = __omp_vars.found; // Auto-saved//#GEN#[-1]#PJ#
+        {//#GEN#[31]#PJ#
+            if ( Pyjama.insideParallelRegion() ) {//#GEN#[32]#PJ#
+                /* Share the following work-sharing construct amongst multiple threads only if inside a parallel region (need this check for orphaned work-sharing constructs) *///#GEN#[32]#PJ#
+                boolean _omp_imFirst = _imFirst_2.getAndSet(false);//#GEN#[32]#PJ#
+                _holderForPIFirst = _imFirst_2;//#GEN#[32]#PJ#
+                if (_omp_imFirst) {//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance = new _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables();//#GEN#[32]#PJ#
+                    int __omp_size_ = 0;//#GEN#[32]#PJ#
+                    // TODO -- improve performance by calculating N from the parameters (as an equation) rather than looping//#GEN#[32]#PJ#
+                    for (int i = 0; i < randomPointsHow; i = i+1) {//#GEN#[32]#PJ#
+                        _lastElement_2 = i;//#GEN#[32]#PJ#
+                        __omp_size_++;//#GEN#[32]#PJ#
+                        }//#GEN#[32]#PJ#
+                    _pi_2 = ParIteratorFactory.createParIterator(0, __omp_size_, 1, Pyjama.omp_get_num_threads(), ParIterator.Schedule.DYNAMIC, ParIterator.DEFAULT_CHUNKSIZE, false);//#GEN#[32]#PJ#
+                    _omp_piVarContainer.add(_pi_2); // for interrupt statement//#GEN#[32]#PJ#
+                    _pi_2.setThreadIdGenerator(new UniqueThreadIdGeneratorForOpenMP());//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.found = new int[Pyjama.omp_get_num_threads()]; //#GEN#[32]#PJ#
+                    for (int __omp__i__loop = 0; __omp__i__loop < Pyjama.omp_get_num_threads(); __omp__i__loop++) {//#GEN#[32]#PJ#
+                        _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.found[__omp__i__loop] = 0; //#GEN#[32]#PJ#
+                    }//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.notFound = new int[Pyjama.omp_get_num_threads()]; //#GEN#[32]#PJ#
+                    for (int __omp__i__loop = 0; __omp__i__loop < Pyjama.omp_get_num_threads(); __omp__i__loop++) {//#GEN#[32]#PJ#
+                        _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.notFound[__omp__i__loop] = 0; //#GEN#[32]#PJ#
+                    }//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.rys = rys; // auto-saving//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.rzs = rzs; // auto-saving//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.randomPoints = randomPoints; // auto-saving//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.randomPointsHow = randomPointsHow; // auto-saving//#GEN#[32]#PJ#
+                    _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.rxs = rxs; // auto-saving//#GEN#[32]#PJ#
+                    _waitBarrier_2.countDown();//#GEN#[32]#PJ#
+                } else {//#GEN#[32]#PJ#
+                    try { _waitBarrier_2.await(); } catch (InterruptedException __omp__ie) { __omp__ie.printStackTrace(); }//#GEN#[32]#PJ#
+                }//#GEN#[32]#PJ#
+                _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2(_ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance);//#GEN#[32]#PJ#
+                if (_imFinishedCounter_2.incrementAndGet() == PJPackageOnly.getThreadCountCurrentParallelRegion()) {//#GEN#[32]#PJ#
+                    _waitBarrierAfter_2.countDown();//#GEN#[32]#PJ#
+                } else {//#GEN#[32]#PJ#
+                    try { //#GEN#[32]#PJ#
+                        _waitBarrierAfter_2.await();//#GEN#[32]#PJ#
+                    } catch (InterruptedException __omp__ie) { //#GEN#[32]#PJ#
+                        __omp__ie.printStackTrace(); //#GEN#[32]#PJ#
+                    }//#GEN#[32]#PJ#
+                }//#GEN#[32]#PJ#
+//#GEN#[32]#PJ#
+                found = _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.reducible_found.reduce(Reduction.IntegerSUM);//#GEN#[32]#PJ#
+                notFound = _ompWorkSharedUserCode_SpheresByPointsRenderPyJava2_variables_instance.reducible_notFound.reduce(Reduction.IntegerSUM);//#GEN#[32]#PJ#
+            } else {//#GEN#[32]#PJ#
+                /* Otherwise, this orphaned work-sharing is not within a parallel region.. so execute sequentially *///#GEN#[32]#PJ#
+                for (int i = 0; i < randomPointsHow; i = i+1) //#GEN#[33]#PJ#
+                {//#GEN#[33]#PJ#
+                    try {//#GEN#[34]#PJ#
+                        Point randomPoint = __omp_vars.randomPoints[i];//#GEN#[35]#PJ#
+                        __omp_vars.rxs[i] = randomPoint.getX();//#GEN#[36]#PJ#
+                        __omp_vars.rys[i] = randomPoint.getY();//#GEN#[37]#PJ#
+                        __omp_vars.rzs[i] = randomPoint.getZ();//#GEN#[38]#PJ#
+                        found++;//#GEN#[39]#PJ#
+                    } catch (NullPointerException e) {//#GEN#[40]#PJ#
+                        System.out.println("e:" + i);//#GEN#[41]#PJ#
+                        ;//#GEN#[42]#PJ#
+                        notFound++;//#GEN#[43]#PJ#
+                    }//#GEN#[44]#PJ#
+                }//#GEN#[45]#PJ#
+            }//#GEN#[45]#PJ#
+//#GEN#[45]#PJ#
+        }//#GEN#[46]#PJ#
+//#GEN#[46]#PJ#
+        __omp_vars.rys = rys; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.rzs = rzs; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.randomPoints = randomPoints; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.randomPointsHow = randomPointsHow; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.notFound = notFound; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.rxs = rxs; // restore auto-saved variable//#GEN#[46]#PJ#
+        __omp_vars.found = found; // restore auto-saved variable//#GEN#[46]#PJ#
+    }AtomicBoolean _omp_gui_once_only4 = new AtomicBoolean(false);//#GEN#[-1]#PJ#
+
+            private void _ompNotifyMethod_0(TaskID id) {{//#GEN#[53]#PJ#
+                _omp__parallelRegionVarHolderClass_SpheresByPointsRenderPyJava0 __omp_vars = (_omp__parallelRegionVarHolderClass_SpheresByPointsRenderPyJava0) id.getTaskArguments()[0];//#GEN#[53]#PJ#
+                double[] rys = __omp_vars.rys; // auto-saved fakestatment//#GEN#[53]#PJ#
+                double[] rzs = __omp_vars.rzs; // auto-saved fakestatment//#GEN#[53]#PJ#
+                Point[] randomPoints = __omp_vars.randomPoints; // auto-saved fakestatment//#GEN#[53]#PJ#
+                int randomPointsHow = __omp_vars.randomPointsHow; // auto-saved fakestatment//#GEN#[53]#PJ#
+                int notFound = __omp_vars.notFound; // auto-saved fakestatment//#GEN#[53]#PJ#
+                double[] rxs = __omp_vars.rxs; // auto-saved fakestatment//#GEN#[53]#PJ#
+                int found = __omp_vars.found; // auto-saved fakestatment//#GEN#[53]#PJ#
+                PJPackageOnly.setThreadCountCurrentParallelRegion(1);//#GEN#[53]#PJ#
+                _holderForPIFirst.set(true);//#GEN#[53]#PJ#
+                System.out.println("found: " + found);//#GEN#[53]#PJ#
+                System.out.println("notFound: " + notFound);//#GEN#[53]#PJ#
+                {//#GEN#[53]#PJ#
+                    StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);//#GEN#[53]#PJ#
+                }/* GUI: Specific code *///#GEN#[49]#PJ#
+                boolean _omp_b_isInEventLoop = EventQueue.isDispatchThread();//#GEN#[49]#PJ#
+//#GEN#[49]#PJ#
+                if(false == _omp_b_isInEventLoop){//#GEN#[49]#PJ#
+                    /* Not in EDT: Putting the code to EDT *///#GEN#[49]#PJ#
+                    final double[] _omp_gui_5rys = rys; // auto-saving//#GEN#[49]#PJ#
+                    final double[] _omp_gui_5rzs = rzs; // auto-saving//#GEN#[49]#PJ#
+                    final Point[] _omp_gui_5randomPoints = randomPoints; // auto-saving//#GEN#[49]#PJ#
+                    final int _omp_gui_5randomPointsHow = randomPointsHow; // auto-saving//#GEN#[49]#PJ#
+                    final int _omp_gui_5notFound = notFound; // auto-saving//#GEN#[49]#PJ#
+                    final double[] _omp_gui_5rxs = rxs; // auto-saving//#GEN#[49]#PJ#
+                    final int _omp_gui_5found = found; // auto-saving//#GEN#[49]#PJ#
+//#GEN#[49]#PJ#
+                    try {//#GEN#[49]#PJ#
+                        SwingUtilities.invokeLater(new Runnable(){//#GEN#[49]#PJ#
+                            public void run()//#GEN#[49]#PJ#
+                            {//#GEN#[50]#PJ#
+                                StdDraw3D.points(_omp_gui_5rxs, _omp_gui_5rys, _omp_gui_5rzs).setColor(Color.GREEN, 80);//#GEN#[51]#PJ#
+                            }//#GEN#[52]#PJ#
+                        });//#GEN#[52]#PJ#
+                    } catch (Exception e) {//#GEN#[52]#PJ#
+                        e.printStackTrace();//#GEN#[52]#PJ#
+                    }//#GEN#[52]#PJ#
+                    } else {//#GEN#[52]#PJ#
+                        /* In EDT: Running the code *///#GEN#[52]#PJ#
+                        {//#GEN#[52]#PJ#
+                            StdDraw3D.points(rxs, rys, rzs).setColor(Color.GREEN, 80);//#GEN#[52]#PJ#
+                        }//#GEN#[52]#PJ#
+                    }//#GEN#[52]#PJ#
+//#GEN#[52]#PJ#
+                }
+                }
+                            AtomicBoolean _omp_gui_once_only5 = new AtomicBoolean(false);//#GEN#[-1]#PJ#
+
+//#GEN#[0]#PJ#
+            }//#GEN#[0]#PJ#

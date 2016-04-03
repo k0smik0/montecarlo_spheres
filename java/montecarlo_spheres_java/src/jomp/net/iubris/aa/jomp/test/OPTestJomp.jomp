@@ -1,0 +1,17 @@
+
+import jomp.runtime.*;
+
+public class OPTestJomp {
+	
+	public static void main(String[] args) {
+		
+		int myid;
+		
+		//omp parallel for private (myid)
+		for (int i=0;i<1e7;i++) {
+			myid = OMP.getThreadNum();
+			System.out.println(OMP.getThreadNum()+": "+i);
+		}
+	}
+
+}
